@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface Transaction {
   id: string;
@@ -23,7 +23,7 @@ export default function TransactionList({ poolPair }: TransactionListProps) {
   const [filter, setFilter] = useState<'all' | 'buy' | 'sell'>('all');
 
   // Generate mock transaction data
-  const generateMockTransactions = () => {
+  const generateMockTransactions = useCallback(() => {
     const mockTransactions: Transaction[] = [];
     const now = new Date();
     
@@ -48,7 +48,7 @@ export default function TransactionList({ poolPair }: TransactionListProps) {
     }
     
     return mockTransactions;
-  };
+  }, [poolPair]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -56,7 +56,7 @@ export default function TransactionList({ poolPair }: TransactionListProps) {
       setTransactions(generateMockTransactions());
       setIsLoading(false);
     }, 300);
-  }, [poolPair]);
+  }, [poolPair, generateMockTransactions]);
 
   const filteredTransactions = transactions.filter(tx => 
     filter === 'all' || tx.type === filter

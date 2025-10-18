@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import ConnectButton from "./extensions/ConnectButton";
 import TokenSelector from "./extensions/TokenSelector";
-import { isInitialized, transferTokens, initializeWithProvider, getUnifiedBalances } from "../../lib/nexus";
+import { transferTokens, initializeWithProvider, getUnifiedBalances } from "../../lib/nexus";
 import { WalletInfo } from "../../lib/walletManager";
 
 interface UnifiedBalance {
@@ -32,9 +32,7 @@ interface SimpleSwapProps {
   setSdkInitialized: (value: boolean) => void;
   unifiedBalances: UnifiedBalance[] | null;
   setUnifiedBalances: (balances: UnifiedBalance[] | null) => void;
-  walletConnected: boolean;
   setWalletConnected: (value: boolean) => void;
-  connectedWallet: WalletInfo | null;
   setConnectedWallet: (wallet: WalletInfo | null) => void;
 }
 
@@ -44,9 +42,7 @@ export default function SimpleSwap({
   setSdkInitialized,
   unifiedBalances,
   setUnifiedBalances,
-  walletConnected,
   setWalletConnected,
-  connectedWallet,
   setConnectedWallet,
 }: SimpleSwapProps) {
   const [swapFromToken, setSwapFromToken] = useState("");
