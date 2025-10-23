@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./SimpleSwapMode.css";
 import ConnectButton from "./extensions/ConnectButton";
 import TokenSelector from "./extensions/TokenSelector";
@@ -10,14 +10,12 @@ import { WalletInfo } from "../../lib/walletManager";
 interface SimpleSwapModeProps {
   isLoaded: boolean;
   walletConnected: boolean;
-  connectedWallet: WalletInfo | null;
   onWalletConnected: (wallet: WalletInfo) => void;
 }
 
 export default function SimpleSwapMode({
   isLoaded,
   walletConnected,
-  connectedWallet,
   onWalletConnected
 }: SimpleSwapModeProps) {
   const [swapFromToken, setSwapFromToken] = useState("ZEC-Zcash");

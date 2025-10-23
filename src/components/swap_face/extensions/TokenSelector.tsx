@@ -2,23 +2,6 @@
 
 import { useState } from 'react';
 
-interface Balance {
-  chain: string;
-  token: string;
-  balance: string;
-  symbol: string;
-}
-
-interface TokenOption {
-  value: string;
-  label: string;
-  balance: string;
-  symbol?: string;
-  key?: string;
-  shortName?: string;
-  displayName?: string;
-}
-
 interface TokenSelectorProps {
   balances: Array<{
     symbol: string;

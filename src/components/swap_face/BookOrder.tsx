@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./ProSwapMode.css";
 import PriceChart from "./extensions/PriceChart";
 
 interface DarkPoolProps {
   isLoaded: boolean;
   walletConnected: boolean;
-  connectedWallet: any;
-  onWalletConnected: (wallet: any) => void;
+  connectedWallet: unknown;
+  onWalletConnected: (wallet: unknown) => void;
 }
 
 interface OrderBookEntry {
@@ -18,10 +18,7 @@ interface OrderBookEntry {
 }
 
 export default function BookOrder({
-  isLoaded,
-  walletConnected,
-  connectedWallet,
-  onWalletConnected
+  isLoaded
 }: DarkPoolProps) {
   const [selectedPair, setSelectedPair] = useState("SOL/USDC");
   const [orderType, setOrderType] = useState<'buy' | 'sell'>('buy');

@@ -79,7 +79,6 @@ export default function SwapInterface() {
           <SimpleSwapMode
             isLoaded={isLoaded}
             walletConnected={walletConnected}
-            connectedWallet={connectedWallet}
             onWalletConnected={handleWalletConnected}
           />
         ) : mode === 'pro' ? (
@@ -91,7 +90,7 @@ export default function SwapInterface() {
             isLoaded={isLoaded}
             walletConnected={walletConnected}
             connectedWallet={connectedWallet}
-            onWalletConnected={handleWalletConnected}
+            onWalletConnected={handleWalletConnected as (wallet: unknown) => void}
           />
         )}
       </div>
