@@ -1,161 +1,132 @@
-<div align="center">
+# 🌊 Siphon Protocol
 
-# 🔒 Siphon Sol
-
-> **Solana's First Privacy-First DEX: FHE & ZK for Unmatched Privacy**
+> **Enabling untraceable, hyperliquid and institutional-grade DeFi privacy**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Solana](https://img.shields.io/badge/Solana-1.18-purple?style=for-the-badge&logo=solana)](https://solana.com/)
-[![Three.js](https://img.shields.io/badge/Three.js-0.180-green?style=for-the-badge&logo=three.js)](https://threejs.org/)
+[![Arcium](https://img.shields.io/badge/Arcium-MPC-orange?style=for-the-badge)](https://arcium.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-**Enabling untraceable, hyperliquid and institutional-grade DeFi privacy on Solana with Fully Homomorphic Encryption and Zero-Knowledge proofs.**
+[🚀 Live Demo](https://siphon-sol.vercel.app) | [🐦 Twitter](https://x.com/SiphonMoney)
 
+## 🎯 The Privacy Crisis We're Solving
 
-[🚀 Live Demo](https://siphon-sol.vercel.app) 
+### ⚠️ The DeFi Transparency Trap
 
----
+#### 🔍 **Complete Financial Surveillance**
+- **Every transaction** exposes your entire financial history
+- **Portfolio strategies** are visible to competitors and regulators
+- **Privacy coins** (ZEC, XMR) lack DeFi integration
+- **Institutional traders** cannot operate with confidentiality
 
-</div>
+#### 🤖 **MEV Extraction Epidemic**
+- **$27B** extracted via MEV attacks in 2024
+- **Order intent** leaks milliseconds before execution
+- **Front-running bots** exploit transparent orderbooks
 
-## 🎯 The Problem We Solve
+#### 💰 **The Privacy-Liquidity Dilemma**
+- Dark pools are fragmented and underutilized
+- Users forced to choose: privacy OR best execution
+- No unified platform for privacy coin trading
+- Institutional adoption blocked by transparency requirements
 
-### ⚠️ Three Critical Privacy Crises in Solana DeFi:
+### 📊 Market Reality
+- **67%** of institutional traders cite privacy as adoption barrier
+- **$12B** in privacy coin market cap lacks DeFi integration
+- **Zero** truly private DEXs with easy access to global liquidity
 
-<table>
-<tr>
-<td width="33%">
+> **The future of finance demands true privacy. We're building it.**
 
-#### 🔍 **Wallets Are Tracked**
-- Solana's transparent ledger exposes identity and transaction history
-- Every SPL token transfer is tracked and potentially reported
-- PnL and strategies are visible to competitors
-- Successful strategies are immediately copied
-
-</td>
-<td width="33%">
-
-#### 🤖 **Execution Becomes Predictable**
-- Order intent leaks before confirmation on Solana DEXs
-- Bots pre-position against large orders using program logs
-- Visible flow widens quotes and worsens fills
-- Settlement windows invite MEV extraction
-
-</td>
-<td width="33%">
-
-#### 💰 **Privacy Forces Liquidity Trade-offs**
-- Private venues on Solana are underfunded with size limits
-- Moving between privacy islands is slow and costly
-- Users must choose: privacy or best price
-- Institutions cannot operate at scale without confidentiality
-
-</td>
-</tr>
-</table>
-
-### 📊 Solana Market Impact:
-- **$2.1B** extracted in 2024 via MEV on Solana
-- **$45M** lost monthly to front-running on Solana DEXs
-- **67%** of Solana traders cite privacy as a key barrier to institutional adoption
-
-> **This is not autonomy. It is transparency as a tool of control.**
-
----
-
-## 🚀 The Siphon Solution
-
-<div align="center">
+## 🚀 The Siphon Protocol
 
 ### 🌉 **The Solana Privacy Bridge**
 
-**Siphon Sol connects public and private capital on Solana with the most liquid DeFi opportunities across the Solana ecosystem.**
+**Siphon Protocol delivers institutional-grade dark pool matching with privacy coin integration, creating the ultimate confidential trading ecosystem.**
 
-**All executed privately, with cheaper transaction prices leveraging Solana's high throughput and low fees.**
+**Built on Arcium's MPC network for privacy settlement, Solana for liquidity settlement, and atomic bridges for private capital onboarding.**
 
-</div>
+### ✨ Key Features
 
-### ✨ Key Features:
+#### 🔒 **Private Engine** 
+- **Portfolio, PnL, and strategies** - are no longer visible on-chain
+- **Fully encrypted orderbook** - amounts and prices never visible
+- **MPC-powered matching** - confidential order execution
+- **Zero front-running** - impossible to extract MEV
+- **Multi-Party Computation** - distributed privacy guarantees
 
-<table>
-<tr>
-<td width="50%">
+#### ⚡ **Private execution**
+- **Private transaction routing** - eliminates order sniffing
+- **Confidential settlement** - encrypted vault management
+- **Nonce-based security** - prevents replay attacks
+- **Distributed privacy** - MPC network guarantees
 
-#### 🔒 **Complete Privacy**
-- Portfolio, PnL, and strategies are no longer visible on-chain
-- Encrypted state management
-- Zero-knowledge balance proofs
-
-#### ⚡ **No Front-running**
-- Eliminates order sniffing and MEV extraction
-- Private transaction routing
-- Advanced MEV protection techniques
-
-</td>
-<td width="50%">
+#### 🪙 **Deep private and public liquidity**
+- **Internal liquidity with private order books**
+- **External liquidity with public solana liquidity**
+- **Multi-chain bridges** 
+- **ZEC-SOL Atomic Swaps** 
+- **XMR-SOL Atomic Swaps** 
 
 #### 💰 **Better Pricing**
-- Cheaper transaction prices through optimized execution
-- Reduced slippage through privacy-preserving routing
-- Institutional-grade execution
-
-#### 🌐 **Solana Native**
-- Hyperliquid execution on Solana's high-speed network
-- Privacy preserved end-to-end
-- Seamless SPL token operations
-
-</td>
-</tr>
-</table>
-
----
+- **Cheaper filling orders** - through private execution
+- **Reduced slippage** - privacy-preserving routing
 
 ## 🛠️ Technical Architecture
 
-### 🔧 Core Technologies:
+### 🔧 Core Innovation Stack
 
-<table>
-<tr>
-<td width="25%" align="center">
+#### 🌊 **Dark Pool Engine**
+**Arcium MPC Network**
+- **Encrypted orderbook** (1302-byte ciphertext)
+- **Confidential matching** algorithms
+- **Price-time priority** execution
+- **Nonce-based security** system
 
-#### 🔐 **FHE**
-**Fully Homomorphic Encryption**
-Enables computation on encrypted data
+#### 🪙 **Privacy Coin Bridges**
+- **Multi-Chain Integration**
+- **Privacy coins ZEC, XMR, else... Atomic Swaps**
 
-</td>
-<td width="25%" align="center">
+#### ⚡ **Solana Settlement**
+**High-Performance Layer**
+- **65,000+ TPS** capability
+- **Sub-cent transaction** costs
+- **SPL token ecosystem** integration
+- **Near-instant finality**
 
-#### 🎭 **ZK Proofs**
-**Zero-Knowledge Proofs**
-Cryptographic assurance without revealing data
+### 🚀 Confidential Trading Workflow
 
-</td>
-<td width="25%" align="center">
+#### 1. **Encrypted Order Submission**
+```rust
+// Orders encrypted with x25519 + RescueCipher
+let encrypted_order = Enc<Shared, OrderData> {
+    amount: encrypted_amount,
+    price: encrypted_price,
+    user_pubkey: pubkey_chunks,
+    nonce: orderbook_nonce
+};
+```
 
-#### 🌉 **SPL Token Swaps**
-**Solana Program Library**
-Seamless SPL token execution
+#### 2. **Confidential Matching Process**
+- **MPC network** decrypts orderbook confidentially
+- **Price-time priority** matching executed off-chain
+- **Up to 5 matches** generated per batch
+- **Results encrypted** for blind access
 
-</td>
-<td width="25%" align="center">
+#### 3. **Private Settlement Execution**
+- **Backend decrypts** match results using match nonce
+- **SPL token transfers** executed on Solana
+- **Encrypted vault balances** updated
+- **Settlement history** privately proofed
 
-#### ⚡ **Solana Programs**
-**Native Smart Contracts**
-High-speed, low-cost execution
+### 🔒 Unbreakable Privacy
 
-</td>
-
-</tr>
-</table>
-
-### 🚀 Solana-Specific Features:
-
-- **High Throughput**: Leveraging Solana's 65,000+ TPS for private transactions
-- **Low Fees**: Sub-cent transaction costs for privacy-preserving swaps
-- **SPL Token Support**: Native support for all Solana Program Library tokens
-- **Program Integration**: Seamless integration with existing Solana DeFi protocols
-- **Fast Finality**: Near-instant transaction confirmation with privacy guarantees
+- **Order amounts/prices**: Never stored in plaintext
+- **Orderbook structure**: Hidden in encrypted ciphertext  
+- **Match execution**: Only revealed to matched parties
+- **Vault balances**: Encrypted state management
+- **Transaction history**: Zero-knowledge proofs only
+- **Portfolio strategies**: Completely invisible to competitors
 
 
 
@@ -164,18 +135,30 @@ High-speed, low-cost execution
 ### 📋 Prerequisites
 
 - **Node.js** 18+ 
-- **npm** or **yarn**
-- **Git**
+- **Rust** 1.75+ with Solana toolchain
+- **Solana CLI** 1.18+
+- **Anchor Framework** 0.31.1
+- **Arcium CLI** - For MPC network interaction
 
 ### ⚡ Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/undefinedlab/siphon_sol.git
+# Clone the repository with submodules
+git clone --recurse-submodules https://github.com/undefinedlab/siphon_sol.git
 cd siphon_sol
 
 # Install dependencies
 npm install
+
+# Install Arcium CLI (see: https://docs.arcium.com/developers/installation)
+# Then build the dark pool matching engine
+cd matching-engine
+yarn install
+arcium build
+cd ..
+
+# Start Arcium localnet (in separate terminal)
+arcium localnet
 
 # Run development server
 npm run dev
@@ -192,49 +175,31 @@ npm run dev
 | `npm run start` | ▶️ Start production server |
 | `npm run lint` | 🔍 Run ESLint |
 | `npm run test` | 🧪 Run tests |
-
-
----
+| `arcium test` | 🔒 Test dark pool matching engine |
 
 ## 🤝 Contributing
-
-We welcome contributions! Here's how you can help:
 
 ### 🚀 Getting Started
 
 1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
+2. **Clone with submodules** (`git clone --recurse-submodules`)
+3. **Create** a feature branch (`git checkout -b feature/privacy-enhancement`)
+4. **Commit** your changes (`git commit -m 'Add privacy feature'`)
+5. **Push** to the branch (`git push origin feature/privacy-enhancement`)
+6. **Open** a Pull Request
 
-### 📋 Development Guidelines
 
-- Follow the existing code style
-- Add tests for new features
-- Update documentation as needed
-- Ensure all tests pass
-
----
 
 ## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
----
-
-
 ## ⚠️ Disclaimer
 
-> **This software is in active development and should be used for testing purposes only. Always conduct your own research and never invest more than you can afford to lose.**
+> **This software is in testing phase development and should be used for testing purposes only.**
 
 ---
 
-<div align="center">
+## 🌊 **Siphon Protocol**
 
-### 🌟 **Siphon Sol**
-
-
-**Made with ❤️ for Solana Ecosystem **
-
-</div>
+**Built with ❤️ for Financial Freedom**
