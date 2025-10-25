@@ -1,3 +1,5 @@
+<div align="center">
+
 # 🌊 Siphon Protocol
 
 > **Enabling untraceable, hyperliquid and institutional-grade DeFi privacy**
@@ -10,6 +12,10 @@
 
 [🚀 Live Demo](https://siphon-sol.vercel.app) | [🐦 Twitter](https://x.com/SiphonMoney)
 
+</div>
+
+---
+
 ## 🎯 The Privacy Crisis We're Solving
 
 ### ⚠️ The DeFi Transparency Trap
@@ -17,7 +23,6 @@
 #### 🔍 **Complete Financial Surveillance**
 - **Every transaction** exposes your entire financial history
 - **Portfolio strategies** are visible to competitors and regulators
-- **Privacy coins** (ZEC, XMR) lack DeFi integration
 - **Institutional traders** cannot operate with confidentiality
 
 #### 🤖 **MEV Extraction Epidemic**
@@ -26,39 +31,37 @@
 - **Front-running bots** exploit transparent orderbooks
 
 #### 💰 **The Privacy-Liquidity Dilemma**
+- **Privacy coins** (ZEC, XMR) lack DeFi integration
 - Dark pools are fragmented and underutilized
 - Users forced to choose: privacy OR best execution
-- No unified platform for privacy coin trading
-- Institutional adoption blocked by transparency requirements
 
 ### 📊 Market Reality
-- **67%** of institutional traders cite privacy as adoption barrier
+- **$27B** extracted in 2024 via MEV
 - **$12B** in privacy coin market cap lacks DeFi integration
 - **Zero** truly private DEXs with easy access to global liquidity
 
 > **The future of finance demands true privacy. We're building it.**
 
+---
+
 ## 🚀 The Siphon Protocol
 
-### 🌉 **The Solana Privacy Bridge**
+### 🌉 **The Solana Privacy Box**
 
-**Siphon Protocol delivers institutional-grade dark pool matching with privacy coin integration, creating the ultimate confidential trading ecosystem.**
+**Siphon Protocol delivers institutional-grade dark pool matching with privacy coin on/off ramp integration, creating the ultimate confidential trading ecosystem.**
 
 **Built on Arcium's MPC network for privacy settlement, Solana for liquidity settlement, and atomic bridges for private capital onboarding.**
 
 ### ✨ Key Features
 
-#### 🔒 **Private Engine** 
+#### 🔒 **Private Identity** 
 - **Portfolio, PnL, and strategies** - are no longer visible on-chain
-- **Fully encrypted orderbook** - amounts and prices never visible
-- **MPC-powered matching** - confidential order execution
-- **Zero front-running** - impossible to extract MEV
-- **Multi-Party Computation** - distributed privacy guarantees
 
 #### ⚡ **Private execution**
 - **Private transaction routing** - eliminates order sniffing
 - **Confidential settlement** - encrypted vault management
-- **Nonce-based security** - prevents replay attacks
+- **Fully encrypted orderbook** - amounts and prices never visible
+- **MPC-powered matching** - confidential order execution
 - **Distributed privacy** - MPC network guarantees
 
 #### 🪙 **Deep private and public liquidity**
@@ -71,6 +74,8 @@
 #### 💰 **Better Pricing**
 - **Cheaper filling orders** - through private execution
 - **Reduced slippage** - privacy-preserving routing
+
+---
 
 ## 🛠️ Technical Architecture
 
@@ -110,7 +115,6 @@ let encrypted_order = Enc<Shared, OrderData> {
 #### 2. **Confidential Matching Process**
 - **MPC network** decrypts orderbook confidentially
 - **Price-time priority** matching executed off-chain
-- **Up to 5 matches** generated per batch
 - **Results encrypted** for blind access
 
 #### 3. **Private Settlement Execution**
@@ -128,7 +132,7 @@ let encrypted_order = Enc<Shared, OrderData> {
 - **Transaction history**: Zero-knowledge proofs only
 - **Portfolio strategies**: Completely invisible to competitors
 
-
+---
 
 ## 🚀 Quick Start
 
@@ -177,6 +181,8 @@ npm run dev
 | `npm run test` | 🧪 Run tests |
 | `arcium test` | 🔒 Test dark pool matching engine |
 
+---
+
 ## 🤝 Contributing
 
 ### 🚀 Getting Started
@@ -188,7 +194,7 @@ npm run dev
 5. **Push** to the branch (`git push origin feature/privacy-enhancement`)
 6. **Open** a Pull Request
 
-
+---
 
 ## 📄 License
 
@@ -200,6 +206,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
+<div align="center">
+
 ## 🌊 **Siphon Protocol**
 
 **Built with ❤️ for Financial Freedom**
+
+</div>
