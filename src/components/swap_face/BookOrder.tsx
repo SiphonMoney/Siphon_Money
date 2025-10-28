@@ -31,6 +31,7 @@ export default function BookOrder({
   const [orderAmount, setOrderAmount] = useState("");
   const [orderPrice, setOrderPrice] = useState("");
   const [timeframe, setTimeframe] = useState<'1m' | '5m' | '15m' | '1h' | '4h' | '1d'>('1h');
+  const [rightPanelView, setRightPanelView] = useState<'order' | 'liquidity'>('order');
   
   // Liquidity management state
   const [liquidityAction, setLiquidityAction] = useState<'add' | 'remove'>('add');
@@ -265,12 +266,26 @@ export default function BookOrder({
           </div>
         </div>
 
-        {/* Order Form Section - 1/3 width */}
+        {/* Order Form + Liquidity Section - 1/3 width */}
         <div className="order-form-section">
           <div className="order-form-header">
-            <span className="order-title">Place Order</span>
+            <div className="view-toggle">
+              <span 
+                className={`view-toggle-text ${rightPanelView === 'order' ? 'active' : ''}`}
+                onClick={() => setRightPanelView('order')}
+              >
+                Place Order
+              </span>
+              <span 
+                className={`view-toggle-text ${rightPanelView === 'liquidity' ? 'active' : ''}`}
+                onClick={() => setRightPanelView('liquidity')}
+              >
+                Manage Liquidity
+              </span>
+            </div>
           </div>
           
+          {rightPanelView === 'order' ? (
           <div className="order-form-content">
             <div className="order-type-selector">
               <button 
@@ -325,15 +340,9 @@ export default function BookOrder({
               Place {orderType === 'buy' ? 'Buy' : 'Sell'} Order
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* Bottom Row: Liquidity Management */}
-      <div className="darkpool-bottom-row">
-        <div className="liquidity-section">
-          <div className="liquidity-header">
-            <span className="liquidity-title">Manage Liquidity</span>
-            <div className="action-selector">
+          ) : (
+          <div className="manage-liquidity-section">
+            <div className="action-selector-inline">
               <button 
                 className={`action-btn ${liquidityAction === 'add' ? 'active' : ''}`}
                 onClick={() => setLiquidityAction('add')}
@@ -347,9 +356,8 @@ export default function BookOrder({
                 Remove
               </button>
             </div>
-          </div>
-          
-          <div className="liquidity-content">
+            
+            <div className="liquidity-content">
             {liquidityAction === 'add' ? (
               <div className="add-liquidity">
                 <div className="form-group">
@@ -407,33 +415,8 @@ export default function BookOrder({
               </div>
             )}
           </div>
-          
-          {/* User Liquidity Stats */}
-          <div className="user-stats">
-            <h4>Your Liquidity Stats</h4>
-            <div className="stats-grid">
-              <div className="stat-card">
-                <span className="stat-label">Total Liquidity</span>
-                <span className="stat-value">${userLiquidityStats.totalLiquidity.toFixed(2)}</span>
-              </div>
-              <div className="stat-card">
-                <span className="stat-label">SOL Deposited</span>
-                <span className="stat-value">{userLiquidityStats.solDeposited.toFixed(2)} SOL</span>
-              </div>
-              <div className="stat-card">
-                <span className="stat-label">USDC Deposited</span>
-                <span className="stat-value">${userLiquidityStats.usdcDeposited.toFixed(2)}</span>
-              </div>
-              <div className="stat-card">
-                <span className="stat-label">Earned Fees</span>
-                <span className="stat-value">${userLiquidityStats.earnedFees.toFixed(2)}</span>
-              </div>
-              <div className="stat-card">
-                <span className="stat-label">Pool Share</span>
-                <span className="stat-value">{(userLiquidityStats.share * 100).toFixed(2)}%</span>
-              </div>
-            </div>
           </div>
+          )}
         </div>
       </div>
 

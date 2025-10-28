@@ -68,7 +68,7 @@ export default function SwapInterface() {
           className={`toggle-button ${mode === 'darkpool' ? 'active' : ''}`}
           onClick={() => setMode('darkpool')}
         >
-          Dark Pool
+          Dark Pools
         </button>
       </div>
 

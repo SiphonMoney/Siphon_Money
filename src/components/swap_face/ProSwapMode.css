@@ -45,7 +45,6 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 0.5rem;
-  backdrop-filter: blur(10px);
 }
 
 .pair-button {
@@ -1259,7 +1258,6 @@
 .darkpool-container::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.02);
   border-radius: 4px;
-  backdrop-filter: blur(10px);
 }
 
 .darkpool-container::-webkit-scrollbar-thumb {
@@ -1269,7 +1267,6 @@
   );
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
 
@@ -1306,7 +1303,6 @@
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  backdrop-filter: blur(3px);
   width: 100%;
 }
 
@@ -1449,27 +1445,123 @@
 
 /* Scrollbars are now hidden for dark pool areas */
 
-/* Liquidity Management Styles */
-.liquidity-section {
-  width: 100%;
-  padding: 2rem;
+/* Chart and Order Section Layout */
+.darkpool-top-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  height: calc(100vh - 200px);
 }
 
-.liquidity-header {
+.chart-section {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
-.liquidity-title {
-  font-size: 20px;
+.order-form-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.order-form-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Liquidity Stats Panel (under chart on left) */
+.liquidity-stats-panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.liquidity-stats-panel h4 {
+  margin: 0 0 1rem 0;
+  font-size: 14px;
   font-weight: 600;
   color: white;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.liquidity-stats-panel .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+/* View Toggle Styles */
+.view-toggle {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.view-toggle-text {
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-source-code), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.25rem;
+}
+
+.view-toggle-text:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.view-toggle-text.active {
+  color: white;
+  font-weight: 600;
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Manage Liquidity Section (under order form on right) */
+.manage-liquidity-section {
+  margin-top: 1rem;
+}
+
+.action-selector-inline {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.action-selector-inline .action-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--font-source-code), monospace;
+}
+
+.action-selector-inline .action-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.action-selector-inline .action-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .action-selector {
