@@ -15,28 +15,28 @@
 </div>
 
 ---
-
+ 
 ## 🎯 The Privacy Crisis We're Solving
 
 ### ⚠️ The DeFi Transparency Trap
 
-#### 🔍 **Complete Financial Surveillance**
+#### 🔍 **Wallets Are Tracked**
 - **Every transaction** exposes your entire financial history
 - **Portfolio strategies** are visible to competitors and regulators
 - **Institutional traders** cannot operate with confidentiality
 
-#### 🤖 **MEV Extraction Epidemic**
-- **$27B** extracted via MEV attacks in 2024
+#### 🤖 **Value Extraction**
 - **Order intent** leaks milliseconds before execution
-- **Front-running bots** exploit transparent orderbooks
+- **Visible flow**  widens quotes and worsens fills.
+- **Sniping and MEV**  extraction destroys profitability.
 
 #### 💰 **The Privacy-Liquidity Dilemma**
 - **Privacy coins** (ZEC, XMR) lack DeFi integration
-- Dark pools are fragmented and underutilized
-- Users forced to choose: privacy OR best execution
+- **Dark pools** are fragmented and underutilized
+- **Users forced** to choose: privacy OR best execution
 
 ### 📊 Market Reality
-- **$27B** extracted in 2024 via MEV
+- **$300M+** lost monthly to front-running attacks on DEXs 
 - **$12B** in privacy coin market cap lacks DeFi integration
 - **Zero** truly private DEXs with easy access to global liquidity
 
@@ -61,7 +61,6 @@
 - **Private transaction routing** - eliminates order sniffing
 - **Confidential settlement** - encrypted vault management
 - **Fully encrypted orderbook** - amounts and prices never visible
-- **MPC-powered matching** - confidential order execution
 - **Distributed privacy** - MPC network guarantees
 
 #### 🪙 **Deep private and public liquidity**
@@ -76,6 +75,11 @@
 - **Reduced slippage** - privacy-preserving routing
 
 ---
+
+
+
+
+
 
 ## 🛠️ Technical Architecture
 

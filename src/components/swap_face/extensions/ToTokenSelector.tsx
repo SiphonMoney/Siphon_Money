@@ -11,8 +11,8 @@ interface ToTokenOption {
 }
 
 const toTokenOptions: ToTokenOption[] = [
-  { value: 'SOL-Solana', label: 'SOL on Solana', symbol: 'SOL', shortName: 'S', active: true },
   { value: 'USDC-Solana', label: 'USDC on Solana', symbol: 'USDC', shortName: 'S', active: true },
+  { value: 'SOL-Solana', label: 'SOL on Solana', symbol: 'SOL', shortName: 'S', active: false },
   { value: 'BTC-Bitcoin', label: 'BTC on Bitcoin', symbol: 'BTC', shortName: 'B', active: false },
   { value: 'XMR-Monero', label: 'XMR on Monero', symbol: 'XMR', shortName: 'M', active: false },
   { value: 'ZEC-Zcash', label: 'ZEC on Zcash', symbol: 'ZEC', shortName: 'Z', active: false },

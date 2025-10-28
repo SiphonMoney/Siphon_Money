@@ -4,13 +4,11 @@ import { useState, useEffect } from "react";
 import "./SwapInterface.css";
 import SimpleSwapMode from "./SimpleSwapMode";
 import ProSwapMode from "./ProSwapMode";
-import BookOrder from "./BookOrder";
-import SolflareConnectButton from "./extensions/SolflareConnectButton";
 import { WalletInfo } from "../../lib/walletManager";
 
 export default function SwapInterface() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [mode, setMode] = useState<'swap' | 'pro' | 'darkpool'>('swap');
+  const [mode, setMode] = useState<'swap' | 'pro'>('swap');
   
   // Wallet state
   const [walletConnected, setWalletConnected] = useState(false);
@@ -65,40 +63,18 @@ export default function SwapInterface() {
         >
           Pro
         </button>
-        <button 
-          className={`toggle-button ${mode === 'darkpool' ? 'active' : ''}`}
-          onClick={() => setMode('darkpool')}
-        >
-          Dark Pool
-        </button>
       </div>
 
-      {/* Solflare Wallet Connect Button - Only show in Dark Pool mode */}
-      {mode === 'darkpool' && (
-        <div className="solflare-wallet-container">
-          <SolflareConnectButton 
-            onWalletConnected={handleWalletConnected}
-          />
-        </div>
-      )}
-
-      <div className={`siphon-window ${isLoaded ? 'loaded' : ''} ${mode === 'pro' ? 'pro-mode' : mode === 'darkpool' ? 'darkpool-mode' : 'simple-mode'}`}>
+      <div className={`siphon-window ${isLoaded ? 'loaded' : ''} ${mode === 'pro' ? 'pro-mode' : 'simple-mode'}`}>
         {mode === 'swap' ? (
           <SimpleSwapMode
             isLoaded={isLoaded}
             walletConnected={walletConnected}
             onWalletConnected={handleWalletConnected}
           />
-        ) : mode === 'pro' ? (
+        ) : (
           <ProSwapMode
             isLoaded={isLoaded}
-          />
-        ) : (
-          <BookOrder
-            isLoaded={isLoaded}
-            walletConnected={walletConnected}
-            connectedWallet={connectedWallet}
-            onWalletConnected={handleWalletConnected}
           />
         )}
       </div>
@@ -106,3 +82,4 @@ export default function SwapInterface() {
     </div>
   );
 }
+

@@ -125,13 +125,13 @@
 }
 
 .column {
-  background: rgba(255, 255, 255, 0.02);
-  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  background: transparent;
+  border-right: none;
   padding: 3rem;
   position: relative;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(5px);
+  backdrop-filter: none;
 }
 
 .column:last-child {
@@ -914,6 +914,23 @@
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.darkpool-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.darkpool-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.darkpool-header-right .solflare-connect-button {
+  position: relative;
+}
+
+
 
 .darkpool-header h2 {
   margin: 0;

@@ -30,14 +30,14 @@ interface TokenSelectorProps {
 export default function TokenSelector({ balances, selectedToken, onTokenSelect, className }: TokenSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Always show token options, even without wallet connected
+  // SOL/USDC swap - only SOL available
   const getPredefinedTokens = () => {
     const predefinedTokens = [
-      { value: "ZEC-Zcash", label: "ZEC on Zcash", symbol: "ZEC", shortName: "Z", isActive: !balances },
-      { value: "SOL-Solana", label: "SOL on Solana", symbol: "SOL", shortName: "S", isActive: !balances },
+      { value: "SOL-Solana", label: "SOL on Solana", symbol: "SOL", shortName: "S", isActive: true },
+      { value: "ZEC-Zcash", label: "ZEC on Zcash", symbol: "ZEC", shortName: "Z", isActive: false },
       { value: "BTC-Bitcoin", label: "BTC on Bitcoin", symbol: "BTC", shortName: "B", isActive: false },
       { value: "XMR-Monero", label: "XMR on Monero", symbol: "XMR", shortName: "M", isActive: false },
-      { value: "SOL-Solflare", label: "SOL on Solflare", symbol: "SOL", shortName: "SF", isActive: !!balances }
+      { value: "SOL-Solflare", label: "SOL on Solflare", symbol: "SOL", shortName: "SF", isActive: false }
     ];
     
     return predefinedTokens;

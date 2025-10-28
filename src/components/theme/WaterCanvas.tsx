@@ -177,7 +177,6 @@ export default function SoftHorizonCanvas() {
       // Subtitle
       ctx.font = `${newSubtitleFontSize}px Source Code Pro`;
       ctx.fillStyle = "#ffffff";
-      ctx.fillText("Trade anywhere, visible nowhere.", width / 2 + 40, height / 2 + newMainFontSize * 0.4);
       
       textTexture.needsUpdate = true;
     };

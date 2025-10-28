@@ -18,8 +18,8 @@ export default function SimpleSwapMode({
   walletConnected,
   onWalletConnected
 }: SimpleSwapModeProps) {
-  const [swapFromToken, setSwapFromToken] = useState("ZEC-Zcash");
-  const [swapToToken, setSwapToToken] = useState("SOL-Solana");
+  const [swapFromToken, setSwapFromToken] = useState("SOL-Solana");
+  const [swapToToken, setSwapToToken] = useState("USDC-Solana");
   const [swapAmount, setSwapAmount] = useState("");
   const [withdrawAddress, setWithdrawAddress] = useState("");
   const [isTransferring, setIsTransferring] = useState(false);
@@ -71,7 +71,7 @@ export default function SimpleSwapMode({
     }
   };
 
-  // Keep predefined tokens (Zcash first, SOL second) regardless of wallet connection
+  // SOL and USDC swap mode
 
   return (
     <div className={`simple-swap ${isLoaded ? 'loaded' : ''}`}>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import "./ProSwapMode.css";
 import PriceChart from "./extensions/PriceChart";
+import SolflareConnectButton from "./extensions/SolflareConnectButton";
 import { matchingEngineClient, OrderParams } from "../../lib/matchingEngine";
 import { WalletInfo } from "../../lib/walletManager";
 
@@ -144,30 +145,38 @@ export default function BookOrder({
     <div className={`darkpool-container ${isLoaded ? 'loaded' : ''}`}>
       {/* Header */}
       <div className="darkpool-header">
-        <h2>Dark Pool Trading</h2>
-        <div className="trading-pair-selector">
-          <button 
-            className={`pair-button ${selectedPair === 'SOL/USDC' ? 'active' : ''}`}
-            onClick={() => setSelectedPair('SOL/USDC')}
-          >
-            SOL/USDC
-          </button>
-          <button 
-            className={`pair-button example-pool ${selectedPair === 'XMR/SOL' ? 'active' : ''}`}
-            onClick={() => setSelectedPair('XMR/SOL')}
-            disabled
-          >
-            XMR/SOL
-            <span className="example-label">(Example)</span>
-          </button>
-          <button 
-            className={`pair-button example-pool ${selectedPair === 'ZEC/SOL' ? 'active' : ''}`}
-            onClick={() => setSelectedPair('ZEC/SOL')}
-            disabled
-          >
-            ZEC/SOL
-            <span className="example-label">(Example)</span>
-          </button>
+        
+        <div className="darkpool-header-left">
+
+          <div className="trading-pair-selector">
+            <button 
+              className={`pair-button ${selectedPair === 'SOL/USDC' ? 'active' : ''}`}
+              onClick={() => setSelectedPair('SOL/USDC')}
+            >
+              SOL/USDC
+            </button>
+            <button 
+              className={`pair-button example-pool ${selectedPair === 'XMR/SOL' ? 'active' : ''}`}
+              onClick={() => setSelectedPair('XMR/SOL')}
+              disabled
+            >
+              XMR/SOL
+              <span className="example-label">(Soon)</span>
+            </button>
+            <button 
+              className={`pair-button example-pool ${selectedPair === 'ZEC/SOL' ? 'active' : ''}`}
+              onClick={() => setSelectedPair('ZEC/SOL')}
+              disabled
+            >
+              ZEC/SOL
+              <span className="example-label">(Soon)</span>
+            </button>
+          </div>
+        </div>
+        <div className="darkpool-header-right">
+          <SolflareConnectButton 
+            onWalletConnected={onWalletConnected}
+          />
         </div>
       </div>
 
