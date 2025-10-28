@@ -16,13 +16,11 @@ interface PriceChartProps {
   timeframe?: '1m' | '5m' | '15m' | '1h' | '4h' | '1d';
 }
 
-// Fetch real SOL/USDC price data from CoinGecko
+// Fetch real SOL/USDC price data from our API route
 const fetchPriceData = async () => {
   try {
-    // Fetch last 24 hours of price data
-    const response = await fetch(
-      'https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=1&interval=hourly'
-    );
+    // Fetch last 24 hours of price data via our API route
+    const response = await fetch('/api/price?days=1');
     
     if (!response.ok) {
       throw new Error('Failed to fetch price data');
@@ -30,8 +28,10 @@ const fetchPriceData = async () => {
     
     const data = await response.json();
     
-    // Convert to our format
-    return data.prices.map((point: [number, number], index: number) => {
+    // Convert to our format and ensure chronological order
+    const sortedPrices = [...data.prices].sort((a: [number, number], b: [number, number]) => a[0] - b[0]);
+    
+    return sortedPrices.map((point: [number, number], index: number) => {
       const date = new Date(point[0]);
       return {
         time: date.toISOString().slice(11, 16), // HH:MM format
@@ -93,9 +93,14 @@ export default function PriceChart({ pair, timeframe = '1h' }: PriceChartProps) 
         
         if (data.length > 0) {
           const latest = data[data.length - 1];
-          const previous = data[data.length - 2];
+          const earliest = data[0];
           setCurrentPrice(latest.price);
-          setPriceChange(((latest.price - previous.price) / previous.price) * 100);
+          // Calculate 24h change from first to last data point
+          if (earliest.price > 0) {
+            setPriceChange(((latest.price - earliest.price) / earliest.price) * 100);
+          } else {
+            setPriceChange(0);
+          }
         }
         
         setIsLoading(false);
