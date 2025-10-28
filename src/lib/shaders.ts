@@ -38,22 +38,22 @@ void main() {
     if (uv.y <= texelSize.y) p_down = p_up;
     if (uv.y >= 1.0 - texelSize.y) p_up = p_down;
     
-    // Enhanced wave equation matching ShaderToy
-    pVel += delta * (-2.0 * pressure + p_right + p_left) / 4.0;
-    pVel += delta * (-2.0 * pressure + p_up + p_down) / 4.0;
+    // Enhanced wave equation matching ShaderToy - more aggressive
+    pVel += delta * (-2.0 * pressure + p_right + p_left) / 3.0;  // Increased wave speed
+    pVel += delta * (-2.0 * pressure + p_up + p_down) / 3.0;
     
-    pressure += delta * pVel;
+    pressure += delta * pVel * 1.2;  // Bigger pressure changes
     
-    pVel -= 0.005 * delta * pressure;
+    pVel -= 0.003 * delta * pressure;  // Less damping
     
-    pVel *= 1.0 - 0.002 * delta;
-    pressure *= 0.999;
+    pVel *= 1.0 - 0.001 * delta;  // Less velocity damping
+    pressure *= 0.998;  // More persistence
     
     vec2 mouseUV = mouse / resolution;
     if(mouse.x > 0.0) {
         float dist = distance(uv, mouseUV);
-        if(dist <= 0.02) {  // Smaller radius for more precise ripples
-            pressure += 2.0 * (1.0 - dist / 0.02);  // Increased intensity
+        if(dist <= 0.03) {  // Larger radius for more visible ripples
+            pressure += 3.5 * (1.0 - dist / 0.03);  // Much more aggressive intensity
         }
     }
     
@@ -100,11 +100,12 @@ float fbm(vec2 p) {
 void main() {
     vec4 data = texture2D(textureA, vUv);
     
-    // Much smaller pixelation effect
-    float pixelSize = 0.8 + sin(time * 3.0) * 0.4;
+    // More aggressive pixelation effect - bigger pixels
+    float pixelSize = 2.5 + sin(time * 4.0) * 1.5;
     vec2 pixelatedUV = floor(vUv * resolution / pixelSize) * pixelSize / resolution;
     
-    vec2 distortion = 0.3 * data.zw;
+    // Bigger, more aggressive distortion
+    vec2 distortion = 0.8 * data.zw;
     vec4 color = texture2D(textureB, pixelatedUV + distortion);
     
     // Create organic burn patterns underneath water

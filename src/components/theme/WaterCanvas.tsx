@@ -117,13 +117,13 @@ export default function SoftHorizonCanvas() {
     ctx.fill(svgPath);
     ctx.restore();
     
-    // Main title
-    ctx.fillText("siphon", width / 2, height / 2);
-    
-    // Subtitle
-    ctx.font = `${subtitleFontSize}px Source Code Pro`;
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText("trade without a trace.", width / 2 + 120, height / 2 + mainFontSize * 0.4);
+      // Main title
+      ctx.fillText("siphon", width / 2, height / 2);
+      
+      // Subtitle - only one subtitle
+      ctx.font = `${subtitleFontSize}px Source Code Pro`;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText("trade without a trace.", width / 2, height / 2 + mainFontSize * 0.5);
 
     const textTexture = new THREE.CanvasTexture(canvas2d);
     textTexture.minFilter = THREE.LinearFilter;
@@ -174,9 +174,10 @@ export default function SoftHorizonCanvas() {
       // Main title
       ctx.fillText("siphon", width / 2, height / 2);
       
-      // Subtitle
+      // Subtitle - only one subtitle
       ctx.font = `${newSubtitleFontSize}px Source Code Pro`;
       ctx.fillStyle = "#ffffff";
+      ctx.fillText("trade without a trace.", width / 2, height / 2 + newMainFontSize * 0.5);
       
       textTexture.needsUpdate = true;
     };
