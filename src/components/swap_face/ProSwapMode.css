@@ -1453,6 +1453,17 @@
   height: calc(100vh - 200px);
 }
 
+/* Price Chart Historical Data Note */
+.historical-data-note {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-source-code), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-top: 0.25rem;
+}
+
 .chart-section {
   display: flex;
   flex-direction: column;

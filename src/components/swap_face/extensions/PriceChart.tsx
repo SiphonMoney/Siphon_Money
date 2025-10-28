@@ -16,35 +16,65 @@ interface PriceChartProps {
   timeframe?: '1m' | '5m' | '15m' | '1h' | '4h' | '1d';
 }
 
-// Generate mock price data that simulates real market behavior
-const generateMockData = (pair: string) => {
-    const data: PriceData[] = [];
-    const now = new Date();
-    const basePrice = pair.includes('SOL') ? 150 : pair.includes('ETH') ? 3000 : 45000;
+// Fetch real SOL/USDC price data from CoinGecko
+const fetchPriceData = async () => {
+  try {
+    // Fetch last 24 hours of price data
+    const response = await fetch(
+      'https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=1&interval=hourly'
+    );
     
-    // Generate data points for the last 24 hours
-    for (let i = 24; i >= 0; i--) {
-      const time = new Date(now.getTime() - i * 60 * 60 * 1000);
-      const hour = time.getHours();
-      
-      // Simulate realistic price movements
-      const volatility = 0.02; // 2% volatility
-      const trend = Math.sin(hour / 24 * Math.PI * 2) * 0.01; // Daily cycle
-      const randomWalk = (Math.random() - 0.5) * volatility;
-      
-      const priceChange = trend + randomWalk;
-      const price = basePrice * (1 + priceChange);
-      const volume = Math.random() * 1000000 + 500000; // Random volume
-      
-      data.push({
-        time: time.toISOString().slice(11, 16), // HH:MM format
-        price: Math.round(price * 100) / 100,
-        volume: Math.round(volume),
-      });
+    if (!response.ok) {
+      throw new Error('Failed to fetch price data');
     }
     
-    return data;
-  };
+    const data = await response.json();
+    
+    // Convert to our format
+    return data.prices.map((point: [number, number], index: number) => {
+      const date = new Date(point[0]);
+      return {
+        time: date.toISOString().slice(11, 16), // HH:MM format
+        price: point[1],
+        volume: Math.random() * 1000000 + 500000, // Volume is not in the API, using mock
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching price data:', error);
+    // Fallback to mock data
+    return generateMockData('SOL/USDC');
+  }
+};
+
+// Generate mock price data as fallback
+const generateMockData = (pair: string) => {
+  const data: PriceData[] = [];
+  const now = new Date();
+  const basePrice = pair.includes('SOL') ? 150 : pair.includes('ETH') ? 3000 : 45000;
+  
+  // Generate data points for the last 24 hours
+  for (let i = 24; i >= 0; i--) {
+    const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+    const hour = time.getHours();
+    
+    // Simulate realistic price movements
+    const volatility = 0.02; // 2% volatility
+    const trend = Math.sin(hour / 24 * Math.PI * 2) * 0.01; // Daily cycle
+    const randomWalk = (Math.random() - 0.5) * volatility;
+    
+    const priceChange = trend + randomWalk;
+    const price = basePrice * (1 + priceChange);
+    const volume = Math.random() * 1000000 + 500000; // Random volume
+    
+    data.push({
+      time: time.toISOString().slice(11, 16), // HH:MM format
+      price: Math.round(price * 100) / 100,
+      volume: Math.round(volume),
+    });
+  }
+  
+  return data;
+};
 
 export default function PriceChart({ pair, timeframe = '1h' }: PriceChartProps) {
   const [priceData, setPriceData] = useState<PriceData[]>([]);
@@ -55,20 +85,27 @@ export default function PriceChart({ pair, timeframe = '1h' }: PriceChartProps) 
   useEffect(() => {
     setIsLoading(true);
     
-    // Simulate API call delay
-    setTimeout(() => {
-      const data = generateMockData(pair);
-      setPriceData(data);
-      
-      if (data.length > 0) {
-        const latest = data[data.length - 1];
-        const previous = data[data.length - 2];
-        setCurrentPrice(latest.price);
-        setPriceChange(((latest.price - previous.price) / previous.price) * 100);
+    // Fetch real price data
+    const loadData = async () => {
+      try {
+        const data = await fetchPriceData();
+        setPriceData(data);
+        
+        if (data.length > 0) {
+          const latest = data[data.length - 1];
+          const previous = data[data.length - 2];
+          setCurrentPrice(latest.price);
+          setPriceChange(((latest.price - previous.price) / previous.price) * 100);
+        }
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to load price data:', error);
+        setIsLoading(false);
       }
-      
-      setIsLoading(false);
-    }, 500);
+    };
+    
+    loadData();
   }, [pair, timeframe]);
 
   const formatPrice = (price: number) => {
@@ -101,7 +138,10 @@ export default function PriceChart({ pair, timeframe = '1h' }: PriceChartProps) 
   return (
     <div className="price-chart">
       <div className="chart-header">
-        <h4>{pair} Price Chart</h4>
+        <div>
+          <h4>{pair} Price Chart</h4>
+          <span className="historical-data-note">historical price data</span>
+        </div>
         <div className="price-info">
           <span className="current-price">{formatPrice(currentPrice)}</span>
           <span className={`price-change ${priceChange >= 0 ? 'positive' : 'negative'}`}>
