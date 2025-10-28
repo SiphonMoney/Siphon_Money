@@ -107,7 +107,7 @@ export default function BookOrder({
 
       // Submit order to matching engine
       const txSignature = await matchingEngineClient.submitOrder(
-        connectedWallet as any, // Cast to wallet adapter type
+        connectedWallet as unknown, // Cast to wallet adapter type
         orderParams
       );
 

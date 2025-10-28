@@ -15,6 +15,12 @@ export interface MatchingEngineConfig {
   quoteMint: string; // USDC mint as string
 }
 
+export interface OrderBookState {
+  bids: Array<{ price: number; amount: number }>;
+  asks: Array<{ price: number; amount: number }>;
+  lastUpdate: number;
+}
+
 export class MatchingEngineClient {
   private config: MatchingEngineConfig;
 
@@ -23,7 +29,7 @@ export class MatchingEngineClient {
   }
 
   // Initialize the program (placeholder)
-  async initializeProgram(wallet: any): Promise<void> {
+  async initializeProgram(_wallet: unknown): Promise<void> {
     try {
       console.log('Matching engine program initialized');
     } catch (error) {
@@ -34,7 +40,7 @@ export class MatchingEngineClient {
 
   // Submit an order to the matching engine
   async submitOrder(
-    wallet: any,
+    _wallet: unknown,
     orderParams: OrderParams
   ): Promise<string> {
     try {
@@ -55,7 +61,7 @@ export class MatchingEngineClient {
   }
 
   // Get order book state (placeholder)
-  async getOrderBookState(): Promise<any> {
+  async getOrderBookState(): Promise<OrderBookState> {
     // TODO: Implement order book state fetching
     return {
       bids: [],
@@ -66,9 +72,9 @@ export class MatchingEngineClient {
 
   // Check if user has sufficient balance
   async checkUserBalance(
-    userPubkey: string,
-    mint: string,
-    requiredAmount: number
+    _userPubkey: string,
+    _mint: string,
+    _requiredAmount: number
   ): Promise<boolean> {
     try {
       // TODO: Implement balance checking
@@ -82,8 +88,8 @@ export class MatchingEngineClient {
 
   // Initialize user vault if it doesn't exist
   async initializeUserVault(
-    wallet: any,
-    mint: string
+    _wallet: unknown,
+    _mint: string
   ): Promise<string> {
     try {
       // TODO: Implement vault initialization

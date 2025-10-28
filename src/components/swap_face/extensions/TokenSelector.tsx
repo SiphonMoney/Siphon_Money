@@ -27,7 +27,7 @@ interface TokenSelectorProps {
   className?: string;
 }
 
-export default function TokenSelector({ balances, selectedToken, onTokenSelect, className }: TokenSelectorProps) {
+export default function TokenSelector({ balances: _balances, selectedToken, onTokenSelect, className }: TokenSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   // SOL/USDC swap - only SOL available

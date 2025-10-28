@@ -12,7 +12,7 @@ export default function SwapInterface() {
   
   // Wallet state
   const [walletConnected, setWalletConnected] = useState(false);
-  const [connectedWallet, setConnectedWallet] = useState<WalletInfo | null>(null);
+  const [_connectedWallet, setConnectedWallet] = useState<WalletInfo | null>(null);
 
   // Handler functions for child components
   const handleWalletConnected = (wallet: WalletInfo) => {
