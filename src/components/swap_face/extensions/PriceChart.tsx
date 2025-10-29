@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from "recharts";
@@ -50,7 +50,7 @@ const fetchPriceData = async () => {
 const generateMockData = (pair: string) => {
   const data: PriceData[] = [];
   const now = new Date();
-  const basePrice = pair.includes('SOL') ? 150 : pair.includes('ETH') ? 3000 : 45000;
+  const basePrice = pair.includes('SOL') ? 201 : pair.includes('ETH') ? 3000 : 45000;
   
   // Generate data points for the last 24 hours
   for (let i = 24; i >= 0; i--) {
@@ -81,8 +81,13 @@ export default function PriceChart({ pair, timeframe = '1h' }: PriceChartProps) 
   const [isLoading, setIsLoading] = useState(true);
   const [currentPrice, setCurrentPrice] = useState(0);
   const [priceChange, setPriceChange] = useState(0);
+  const hasFetched = useRef(false);
 
   useEffect(() => {
+    // Only fetch once on mount
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+    
     setIsLoading(true);
     
     // Fetch real price data
@@ -117,7 +122,7 @@ export default function PriceChart({ pair, timeframe = '1h' }: PriceChartProps) 
     };
     
     loadData();
-  }, [pair, timeframe]);
+  }, []); // Empty dependency array - only run once
 
   const formatPrice = (price: number) => {
     return `$${price.toFixed(2)}`;

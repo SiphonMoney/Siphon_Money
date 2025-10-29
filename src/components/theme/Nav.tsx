@@ -25,7 +25,7 @@ export default function Nav() {
           <p>docs</p>
           <p>about</p>
           
-          <button onClick={() => setShowSwapModal(true)} className="nav-link">swap</button>
+          <button onClick={() => setShowSwapModal(true)} className="nav-link">dapp</button>
         </div>
       </nav>
 

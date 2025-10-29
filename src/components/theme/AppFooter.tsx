@@ -2,16 +2,16 @@ export default function AppFooter() {
   return (
     <footer>
       <div className="footer-left">
-      <p>Untraceable.</p>
-      <p>Provable.</p>
-      <p>Hyperliquid.</p>
+      <p>Fully Homomorphic Encryption.</p>
+      <p>Multi-Party Computation.</p>
+      <p>Zero-Knowledge proofs.</p>
 
       </div>
 
       <div className="footer-links">
-      <p>Fully Homomorphic Encryption.</p>
-      <p>Zero-Knowledge proofs.</p>
-      <p>Chain Agnostic.</p>
+      <p>Hyperliquid.</p>
+      <p>Untraceable.</p>
+      <p>Provable.</p>
       </div>
     </footer>
   );

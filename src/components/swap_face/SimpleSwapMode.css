@@ -29,6 +29,14 @@
   background-clip: text;
 }
 
+/* Hide "Swap Tokens" title on mobile */
+@media (max-width: 768px) {
+  .simple-swap h3 {
+    margin-top: 20px;
+    display: none;
+  }
+}
+
 /* Swap Step Styles */
 .swap-step {
   margin-bottom: 2rem;

@@ -106,6 +106,44 @@ footer h1 {
   gap: 2em;
 }
 
+/* Footer responsive styles */
+@media (max-width: 768px) {
+  footer {
+    padding: 1.5em;
+  }
+
+  .footer-left {
+    text-align: left;
+  }
+
+  .footer-links {
+    text-align: right;
+  }
+
+  footer p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 1em;
+  }
+
+  footer p {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .footer-left {
+    text-align: left;
+  }
+
+  .footer-links {
+    text-align: right;
+  }
+}
+
 .nav-link {
   color: #ffffff;
   text-decoration: none;

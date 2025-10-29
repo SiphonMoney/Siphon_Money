@@ -38,22 +38,22 @@ void main() {
     if (uv.y <= texelSize.y) p_down = p_up;
     if (uv.y >= 1.0 - texelSize.y) p_up = p_down;
     
-    // Enhanced wave equation matching ShaderToy - more aggressive
-    pVel += delta * (-2.0 * pressure + p_right + p_left) / 3.0;  // Increased wave speed
-    pVel += delta * (-2.0 * pressure + p_up + p_down) / 3.0;
+    // Enhanced wave equation matching ShaderToy
+    pVel += delta * (-2.0 * pressure + p_right + p_left) / 4.0;
+    pVel += delta * (-2.0 * pressure + p_up + p_down) / 4.0;
     
-    pressure += delta * pVel * 1.2;  // Bigger pressure changes
+    pressure += delta * pVel;
     
-    pVel -= 0.003 * delta * pressure;  // Less damping
+    pVel -= 0.005 * delta * pressure;
     
-    pVel *= 1.0 - 0.001 * delta;  // Less velocity damping
-    pressure *= 0.998;  // More persistence
+    pVel *= 1.0 - 0.002 * delta;
+    pressure *= 0.999;
     
     vec2 mouseUV = mouse / resolution;
     if(mouse.x > 0.0) {
         float dist = distance(uv, mouseUV);
-        if(dist <= 0.03) {  // Larger radius for more visible ripples
-            pressure += 3.5 * (1.0 - dist / 0.03);  // Much more aggressive intensity
+        if(dist <= 0.02) {  // Smaller radius for more precise ripples
+            pressure += 2.0 * (1.0 - dist / 0.02);  // Increased intensity
         }
     }
     
@@ -100,60 +100,15 @@ float fbm(vec2 p) {
 void main() {
     vec4 data = texture2D(textureA, vUv);
     
-    // More aggressive pixelation effect - bigger pixels
-    float pixelSize = 2.5 + sin(time * 4.0) * 1.5;
+    // Much smaller pixelation effect
+    float pixelSize = 0.8 + sin(time * 3.0) * 0.4;
     vec2 pixelatedUV = floor(vUv * resolution / pixelSize) * pixelSize / resolution;
     
-    // Bigger, more aggressive distortion
-    vec2 distortion = 0.8 * data.zw;
+    vec2 distortion = 0.3 * data.zw;
     vec4 color = texture2D(textureB, pixelatedUV + distortion);
     
-    // Create organic burn patterns underneath water
-    vec2 burnUV = vUv * 8.0 + time * 0.1;
-    float burnPattern = fbm(burnUV);
-    burnPattern += fbm(burnUV * 2.0 + time * 0.2) * 0.5;
-    burnPattern += fbm(burnUV * 4.0 + time * 0.3) * 0.25;
-    
-    // Create chemical burn effect
-    float burnIntensity = burnPattern * 0.3;
-    burnIntensity += sin(vUv.x * 20.0 + time) * 0.1;
-    burnIntensity += sin(vUv.y * 15.0 + time * 1.2) * 0.1;
-    
-    // Apply thermal vision heatmap to burn patterns (underneath)
-    vec3 thermalBurnColor;
-    if (burnIntensity > 0.8) {
-        // Bright white-yellow core
-        thermalBurnColor = vec3(1.0, 1.0, 0.8);
-    } else if (burnIntensity > 0.6) {
-        // Bright yellow
-        thermalBurnColor = vec3(1.0, 1.0, 0.3);
-    } else if (burnIntensity > 0.4) {
-        // Orange
-        thermalBurnColor = vec3(1.0, 0.6, 0.1);
-    } else if (burnIntensity > 0.2) {
-        // Red-orange
-        thermalBurnColor = vec3(1.0, 0.3, 0.0);
-    } else if (burnIntensity > 0.1) {
-        // Dark red
-        thermalBurnColor = vec3(0.8, 0.1, 0.0);
-    } else {
-        // Dark blue background
-        thermalBurnColor = vec3(0.1, 0.1, 0.3);
-    }
-    
-    // Add thermal glow to burns
-    float burnGlow = burnIntensity * burnIntensity * 2.0;
-    thermalBurnColor += vec3(burnGlow * 0.3);
-    
-    // Get text intensity for water transparency
-    float textIntensity = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-    
-    // Create water effect over thermal burns
-    // Water is more transparent where text is darker (allows thermal burns to show through)
-    float waterOpacity = textIntensity * 0.8 + 0.2; // Minimum 20% opacity for water
-    
-    // Mix thermal burns (underneath) with water distortion (on top)
-    vec3 finalColor = mix(thermalBurnColor, color.rgb, waterOpacity);
+    // Clean black background with water distortion effect
+    vec3 finalColor = color.rgb;
     
     // Add pixel noise
     vec2 noiseUV = floor(vUv * resolution / pixelSize) * pixelSize / resolution;

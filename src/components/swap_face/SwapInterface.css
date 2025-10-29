@@ -208,7 +208,7 @@
   width: 99vw;
   height: calc(95vh - 100px);
   max-width: 1800px;
-  margin-top: 50px;
+  margin-top: 100px;
   background: transparent;
   border: none;
   backdrop-filter: none;
@@ -220,7 +220,7 @@
   width: 99vw;
   height: calc(95vh - 100px);
   max-width: 1800px;
-  margin-top: 50px;
+  margin-top: 100px;
   background: transparent;
   border: none;
   backdrop-filter: none;
@@ -233,6 +233,7 @@
   height: auto;
   min-width: 400px;
   max-width: 500px;
+  margin-top: 50px;
   background: transparent;
   border: none;
   backdrop-filter: none;

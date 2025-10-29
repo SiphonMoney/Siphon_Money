@@ -887,7 +887,9 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.4s ease, transform 0.4s ease;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .darkpool-container.loaded {
@@ -1734,5 +1736,164 @@
   font-weight: 600;
   color: white;
   font-family: var(--font-source-code), monospace;
+}
+
+/* Mobile Responsive Styles for Dark Pool */
+@media (max-width: 768px) {
+  .darkpool-container {
+    padding: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    max-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .darkpool-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .darkpool-header-left {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .darkpool-header-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .darkpool-header h2 {
+    font-size: 20px;
+  }
+
+  .trading-pair-selector {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .pair-button {
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .darkpool-top-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    height: auto;
+  }
+
+  /* Reorder: Place Order above Chart on mobile */
+  .chart-section {
+    min-height: 300px;
+    max-height: 50vh;
+    overflow-y: auto;
+    order: 2;
+  }
+
+  .order-form-section {
+    max-height: none;
+    overflow-y: visible;
+    order: 1;
+  }
+
+  .chart-container {
+    min-height: 250px;
+    max-height: 40vh;
+  }
+
+  .stats-24h {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .stat-item {
+    flex: 1 1 calc(50% - 0.25rem);
+    min-width: 120px;
+    justify-content: flex-start;
+  }
+
+  .stat-label {
+    font-size: 9px;
+  }
+
+  .stat-value {
+    font-size: 12px;
+  }
+
+  .timeframe-selector {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .timeframe-btn {
+    font-size: 10px;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .order-form-content,
+  .manage-liquidity-section {
+    overflow-y: visible;
+    max-height: none;
+  }
+
+  .view-toggle {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .view-toggle-text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .darkpool-container {
+    padding: 0.75rem;
+  }
+
+  .darkpool-header h2 {
+    font-size: 18px;
+  }
+
+  .chart-section {
+    padding: 0.75rem;
+    min-height: 250px;
+    max-height: 45vh;
+  }
+
+  .order-form-section {
+    padding: 0.75rem;
+  }
+
+  .stats-24h {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stat-item {
+    flex: 1 1 100%;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .chart-container {
+    min-height: 200px;
+    max-height: 35vh;
+  }
+
+  .timeframe-selector {
+    font-size: 9px;
+  }
+
+  .timeframe-btn {
+    font-size: 9px;
+    padding: 0.15rem 0.3rem;
+  }
 }
 
