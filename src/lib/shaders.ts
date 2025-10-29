@@ -44,16 +44,16 @@ void main() {
     
     pressure += delta * pVel;
     
-    pVel -= 0.005 * delta * pressure;
+    pVel -= 0.008 * delta * pressure;  // Increased damping for faster fade
     
-    pVel *= 1.0 - 0.002 * delta;
-    pressure *= 0.999;
+    pVel *= 1.0 - 0.003 * delta;  // Increased damping
+    pressure *= 0.995;  // Faster decay for more subtle effect
     
     vec2 mouseUV = mouse / resolution;
     if(mouse.x > 0.0) {
         float dist = distance(uv, mouseUV);
         if(dist <= 0.02) {  // Smaller radius for more precise ripples
-            pressure += 2.0 * (1.0 - dist / 0.02);  // Increased intensity
+            pressure += 1.0 * (1.0 - dist / 0.02);  // Reduced intensity for subtlety
         }
     }
     
@@ -104,17 +104,17 @@ void main() {
     float pixelSize = 0.8 + sin(time * 3.0) * 0.4;
     vec2 pixelatedUV = floor(vUv * resolution / pixelSize) * pixelSize / resolution;
     
-    vec2 distortion = 0.3 * data.zw;
+    vec2 distortion = 0.15 * data.zw;  // Reduced distortion for lighter, more subtle effect
     vec4 color = texture2D(textureB, pixelatedUV + distortion);
     
     // Clean black background with water distortion effect
     vec3 finalColor = color.rgb;
     
-    // Add pixel noise
+    // Add pixel noise (reduced for lighter effect)
     vec2 noiseUV = floor(vUv * resolution / pixelSize) * pixelSize / resolution;
     float noise = fract(sin(dot(noiseUV, vec2(12.9898, 78.233))) * 43758.5453);
-    noise = step(0.98, noise) * 0.2;
-    finalColor += vec3(noise * 0.5);
+    noise = step(0.98, noise) * 0.1;  // Reduced noise intensity
+    finalColor += vec3(noise * 0.3);  // Reduced noise contribution
     
     gl_FragColor = vec4(finalColor, 1.0);
 }
