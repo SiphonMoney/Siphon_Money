@@ -1,4 +1,4 @@
-<div align="center">
+<div align="left">
 
 # 🌊 Siphon Protocol
 
@@ -10,37 +10,47 @@
 [![Arcium](https://img.shields.io/badge/Arcium-MPC-orange?style=for-the-badge)](https://arcium.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-[🚀 Live Demo](https://siphon-sol.vercel.app) | [🐦 Twitter](https://x.com/SiphonMoney)
+[🚀 Live Demo](https://siphon.money) | [🐦 Twitter](https://x.com/SiphonMoney)
 
 </div>
 
 ---
  
-## 🎯 The Privacy Crisis We're Solving
+## 🎯 The Problem We Solve
 
-### ⚠️ The DeFi Transparency Trap
+### ⚠️ Three Critical Privacy Crises in DeFi:
+
+<table>
+<tr>
+<td width="33%">
+
 
 #### 🔍 **Wallets Are Tracked**
-- **Every transaction** exposes your entire financial history
-- **Portfolio strategies** are visible to competitors and regulators
-- **Institutional traders** cannot operate with confidentiality
+- **Chain analytics links addresses** timing, and flows into identities.
+- **Your PNL**, history and every move are visible.
 
-#### 🤖 **Value Extraction**
-- **Order intent** leaks milliseconds before execution
+</td>
+<td width="33%">
+
+#### 🤖 **Value is Extracted**
 - **Visible flow**  widens quotes and worsens fills.
 - **Sniping and MEV**  extraction destroys profitability.
 
-#### 💰 **The Privacy-Liquidity Dilemma**
-- **Privacy coins** (ZEC, XMR) lack DeFi integration
-- **Dark pools** are fragmented and underutilized
+</td>
+<td width="33%">
+
+#### 💰 **Liquidity is Siloed**
+- **Privacy coins** and pools lack DeFi integration
 - **Users forced** to choose: privacy OR best execution
+
+</td>
+</tr>
+</table>
 
 ### 📊 Market Reality
 - **$300M+** lost monthly to front-running attacks on DEXs 
 - **$12B** in privacy coin market cap lacks DeFi integration
 - **Zero** truly private DEXs with easy access to global liquidity
-
-> **The future of finance demands true privacy. We're building it.**
 
 ---
 
@@ -48,62 +58,158 @@
 
 ### 🌉 **The Solana Privacy Box**
 
-**Siphon Protocol delivers institutional-grade dark pool matching with privacy coin on/off ramp integration, creating the ultimate confidential trading ecosystem.**
+**Siphon serves as the seamless privacy-preserving gateway between public and private capital, facilitating secure, private and verifiable movement of assets across multiple blockchains. By enabling frictionless access to the deepest, most liquid DeFi opportunities in a true omnichain environment, Siphon empowers institutions and individuals alike to transact and deploy strategies at scale—without sacrificing confidentiality, competitive edge, or market efficiency.**
+</div>
 
-**Built on Arcium's MPC network for privacy settlement, Solana for liquidity settlement, and atomic bridges for private capital onboarding.**
 
 ### ✨ Key Features
 
+<table>
+<tr>
+<td width="50%">
+
 #### 🔒 **Private Identity** 
-- **Portfolio, PnL, and strategies** - are no longer visible on-chain
+- Portfolio, PnL, and strategies are no longer visible on-chain
+- Encrypted state management
 
 #### ⚡ **Private execution**
-- **Private transaction routing** - eliminates order sniffing
-- **Confidential settlement** - encrypted vault management
-- **Fully encrypted orderbook** - amounts and prices never visible
-- **Distributed privacy** - MPC network guarantees
+- Eliminates order sniffing and MEV extraction
+- Private transaction routing
 
-#### 🪙 **Deep private and public liquidity**
-- **Internal liquidity with private order books**
-- **External liquidity with public solana liquidity**
-- **Multi-chain bridges** 
-- **ZEC-SOL Atomic Swaps** 
-- **XMR-SOL Atomic Swaps** 
+</td>
+<td width="50%">
 
 #### 💰 **Better Pricing**
-- **Cheaper filling orders** - through private execution
-- **Reduced slippage** - privacy-preserving routing
+- Cheaper transaction prices through optimized execution
+- Reduced slippage through privacy-preserving routing
+
+#### 🌐 **Omnichain Routing**
+- Hyperliquid execution across multiple chains
+- Privacy preserved end-to-end
+
+</td>
+</tr>
+</table>
+
+<img src="https://github.com/undefinedlab/siphon_money/blob/master/docs/protocol.png" alt="Siphon Architecture Diagram" width="100%" />
+
 
 ---
 
-
-
-
-
-
 ## 🛠️ Technical Architecture
 
-### 🔧 Core Innovation Stack
+### 🔧 Core Technologies
+<table>
+  <tr>
+    <td width="33%" align="center">
 
-#### 🌊 **Dark Pool Engine**
-**Arcium MPC Network**
-- **Encrypted orderbook** (1302-byte ciphertext)
-- **Confidential matching** algorithms
-- **Price-time priority** execution
-- **Nonce-based security** system
+#### 🔐 **FHE**  
+**Fully Homomorphic Encryption**  
+Enables computation on encrypted data
 
-#### 🪙 **Privacy Coin Bridges**
-- **Multi-Chain Integration**
-- **Privacy coins ZEC, XMR, else... Atomic Swaps**
+  </td>
+    <td width="33%" align="center">
 
-#### ⚡ **Solana Settlement**
-**High-Performance Layer**
-- **65,000+ TPS** capability
-- **Sub-cent transaction** costs
-- **SPL token ecosystem** integration
-- **Near-instant finality**
+#### 🎭 **ZK Proofs**  
+**Zero-Knowledge Proofs**  
+Proves correctness—no data revealed
 
-### 🚀 Confidential Trading Workflow
+  </td>
+    <td width="33%" align="center">
+
+#### 🌉 ** Arcium (MPC)*  
+**Multi‑Party Computation Execution**  
+Decentralized MPC network for private, verifiable off‑chain/on‑chain computation
+
+  </td>
+  </tr>
+
+  <tr>
+    <td width="33%" align="center">
+
+#### 🔁 Atomic swaps**  
+**Cross‑chain, trustless asset exchange**  
+Peer‑to‑peer on/off‑ramp and private coin swapping
+
+
+  </td>
+    <td width="33%" align="center">
+
+#### ⚙️ **Solana**  
+**Execution & Settlement Layer**  
+Secure, composable, and composable foundation for DeFi.
+
+  </td>
+  </tr>
+</table>
+
+
+### The Five-Layer Architecture:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 5: Liquidity Interface                                │
+│ - Public DEX aggregators                                    │
+│ - Cross-chain bridges                                       │
+│ - Modular design for privacy-native assets                  │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 4: Verification & Settlement                          │
+│ - ZK proof of correct execution                             │
+│ - On-chain verification                                     │
+│ - Cryptographic guarantees                                  │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 3: Confidential Execution Environment (FHE Engine)    │
+│ - Encrypted mempool                                         │
+│ - Computation on encrypted data                             │
+│ - Order matching & slippage calculation                     │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 2: Shielded Pool                                      │
+│ - Incremental Merkle trees                                  │
+│ - Zero-knowledge membership proofs                          │
+│ - Nullifier system for double-spend prevention              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 1: Vault Contract                                     │
+│ - Trustless escrow for public assets                        │
+│ - ETH, USDC, WBTC and more                                  │
+│ - Release on valid ZK proof verification                    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+
+## ⚖️ Compliance & Regulatory Considerations
+
+Siphon Protocol should integrate multiple compliance mechanisms to address regulatory requirements while maintaining core privacy principles:
+
+### 🛡️ Risk Screening Gate
+- **On-Chain Risk Oracle Integration**: Funds entering the Siphon Vault must pass validation through established risk oracles (e.g., Chainalysis, TRM, or in-protocol scoring systems)
+- **Source Verification**: Addresses are screened against known restricted or sanctioned lists before admission
+
+### 🔐 Zero-Knowledge Proof of Compliance
+- **Privacy-Preserving Verification**: Users can prove they meet KYC/AML requirements without revealing identity
+- **Compliant Service Provider Integration**: Works with compliance providers to generate non-revealing proofs
+- **Address Sanctioning**: Demonstrates funds are not from restricted address lists, cryptographically
+
+### 📊 Verifiable Transparency Layer
+- **Per-Batch Proofs**: Each execution batch emits a zero-knowledge event proving:
+  - Encrypted trades were executed correctly
+  - State updates followed protocol rules
+  - Fees were computed and distributed correctly
+  - All without revealing underlying sensitive data
+- **Cryptographic Guarantees**: Mathematical proofs ensure system integrity
+- **Audit Trail**: Maintains verifiable record of protocol correctness while preserving user privacy
+
+> **Note**: These compliance mechanisms are part of the architectural design and serve to demonstrate how privacy and regulatory compliance can coexist. Real-world implementation would require integration with licensed compliance service providers and legal frameworks.
+
+
+
+### 🚀 DarkPool Workflow
+
+https://github.com/arnabnandikgp/matching-engine/blob/main/UPDATED_IN_APP_SETTLEMENT_ARCHITECTURE.md
+
 
 #### 1. **Encrypted Order Submission**
 ```rust
@@ -213,9 +319,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 <div align="center">
 
 ## 🌊 **Siphon Protocol**
-
-**Built with ❤️ for Financial Freedom**
-
-</div>ncial Freedom**
-
 </div>
