@@ -919,6 +919,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  pointer-events: auto;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.4s ease, transform 0.4s ease;
@@ -937,31 +938,41 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: auto;
+  position: relative;
+  z-index: 50;
 }
 
 .darkpool-header-left {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  pointer-events: auto;
 }
 
 .darkpool-header-right {
   display: flex;
   align-items: center;
+  pointer-events: auto;
+  z-index: 100;
 }
 
 .darkpool-header-right .solflare-connect-button {
   position: relative;
+  pointer-events: auto;
 }
 
 /* Elegant, smaller wallet selector for darkpool */
 .darkpool-connect-button .wallet-selector {
   width: auto;
+  pointer-events: auto;
+  z-index: 101;
 }
 
 .darkpool-connect-button .wallet-selector-trigger {
   width: auto;
-  min-width: 140px;
+  min-width: 180px;
+  height: 44px;
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
@@ -978,6 +989,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  pointer-events: auto;
+  position: relative;
+  z-index: 102;
 }
 
 .darkpool-connect-button .wallet-selector-trigger:hover {
@@ -1015,11 +1029,12 @@
   background: rgba(0, 0, 0, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
-  z-index: 1000;
+  z-index: 10000;
   backdrop-filter: blur(12px);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   animation: slideDown 0.2s ease;
   overflow: hidden;
+  pointer-events: auto;
 }
 
 .darkpool-connect-button .wallet-dropdown > p {
@@ -1037,10 +1052,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
+  pointer-events: auto;
 }
 
 .darkpool-connect-button .wallet-option {
   width: 100%;
+  pointer-events: auto;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 4px;
@@ -1137,12 +1154,109 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  pointer-events: auto;
+  position: relative;
+  z-index: 102;
+}
+
+/* Connected Wallet Button - Clickable for Disconnect */
+.darkpool-connect-button .connected-wallet-button {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: auto;
+  position: relative;
+  z-index: 102;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  font-family: var(--font-source-code), monospace;
+  width: auto;
+  min-width: 180px;
+  height: 44px;
+}
+
+.darkpool-connect-button .connected-wallet-button:hover {
+  background: rgba(255, 0, 0, 0.15);
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+.darkpool-connect-button .connected-wallet-button .wallet-info {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+}
+
+.darkpool-connect-button .connected-wallet-button .wallet-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  flex-shrink: 0;
+  padding: 4px;
+}
+
+.darkpool-connect-button .connected-wallet-button .wallet-icon-wrapper svg {
+  width: 20px;
+  height: 20px;
+}
+
+.darkpool-connect-button .connected-wallet-button .wallet-icon-text {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.darkpool-connect-button .connected-wallet-button .wallet-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.darkpool-connect-button .connected-wallet-button .wallet-address {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.darkpool-connect-button .connected-wallet-button .disconnect-text {
+  font-size: 9px;
+  color: rgba(255, 100, 100, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.darkpool-connect-button .connected-wallet-button:hover .disconnect-text {
+  color: rgba(255, 50, 50, 1);
 }
 
 .darkpool-connect-button .wallet-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.darkpool-connect-button .connected-wallet-button .wallet-icon {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  padding: 0.25rem 0.375rem;
+  min-width: 24px;
+  text-align: center;
 }
 
 .darkpool-connect-button .wallet-details {
