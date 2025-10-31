@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react";
 import "./SwapInterface.css";
-import SimpleSwapMode from "./SimpleSwapMode";
 import ProSwapMode from "./ProSwapMode";
 import BookOrder from "./BookOrder";
 import { WalletInfo } from "../../lib/walletManager";
 
 export default function SwapInterface() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [mode, setMode] = useState<'swap' | 'pro' | 'darkpool'>('swap');
+  const [mode, setMode] = useState<'pro' | 'darkpool'>('darkpool');
   
   // Wallet state
   const [walletConnected, setWalletConnected] = useState(false);
@@ -53,10 +52,10 @@ export default function SwapInterface() {
       {/* Floating Mode Toggle */}
       <div className="floating-mode-toggle">
         <button 
-          className={`toggle-button ${mode === 'swap' ? 'active' : ''}`}
-          onClick={() => setMode('swap')}
+          className={`toggle-button ${mode === 'darkpool' ? 'active' : ''}`}
+          onClick={() => setMode('darkpool')}
         >
-          Swap
+          Dark Pools
         </button>
         <button 
           className={`toggle-button ${mode === 'pro' ? 'active' : ''}`}
@@ -64,22 +63,10 @@ export default function SwapInterface() {
         >
           Pro
         </button>
-        <button 
-          className={`toggle-button ${mode === 'darkpool' ? 'active' : ''}`}
-          onClick={() => setMode('darkpool')}
-        >
-          Dark Pools
-        </button>
       </div>
 
-      <div className={`siphon-window ${isLoaded ? 'loaded' : ''} ${mode === 'pro' ? 'pro-mode' : mode === 'darkpool' ? 'darkpool-mode' : 'simple-mode'}`}>
-        {mode === 'swap' ? (
-          <SimpleSwapMode
-            isLoaded={isLoaded}
-            walletConnected={walletConnected}
-            onWalletConnected={handleWalletConnected}
-          />
-        ) : mode === 'pro' ? (
+      <div className={`siphon-window ${isLoaded ? 'loaded' : ''} ${mode === 'pro' ? 'pro-mode' : 'darkpool-mode'}`}>
+        {mode === 'pro' ? (
           <ProSwapMode
             isLoaded={isLoaded}
           />

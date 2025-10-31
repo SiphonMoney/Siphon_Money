@@ -3,9 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import "./ProSwapMode.css";
 import PriceChart from "./extensions/PriceChart";
-import TransactionList from "./extensions/TransactionList";
 import ConnectButton from "./extensions/ConnectButton";
-import { matchingEngineClient, OrderParams } from "../../lib/matchingEngine";
+import { OrderParams } from "../../lib/matchingEngine";
 import { WalletInfo } from "../../lib/walletManager";
 
 interface DarkPoolProps {
@@ -13,12 +12,6 @@ interface DarkPoolProps {
   walletConnected: boolean;
   connectedWallet: WalletInfo | null;
   onWalletConnected: (wallet: WalletInfo) => void;
-}
-
-interface OrderBookEntry {
-  price: number;
-  amount: number;
-  total: number;
 }
 
 export default function BookOrder({
@@ -89,39 +82,6 @@ export default function BookOrder({
   const [liquidityAction, setLiquidityAction] = useState<'add' | 'remove'>('add');
   const [solAmount, setSolAmount] = useState("");
   const [usdcAmount, setUsdcAmount] = useState("");
-  
-  // Mock user liquidity stats
-  const userLiquidityStats = {
-    totalLiquidity: 1250.5,
-    solDeposited: 850.0,
-    usdcDeposited: 110000.5,
-    earnedFees: 12.34,
-    share: 0.045 // 4.5% of total pool
-  };
-
-  // Mock order book data - updated for privacy coins
-  const [orderBook, setOrderBook] = useState({
-    bids: [
-      { price: 0.126, amount: 1250.0, total: 157.5 },
-      { price: 0.1258, amount: 2100.0, total: 264.18 },
-      { price: 0.1256, amount: 850.0, total: 106.76 },
-      { price: 0.1254, amount: 3200.0, total: 401.28 },
-      { price: 0.1252, amount: 1500.0, total: 187.8 },
-      { price: 0.125, amount: 2800.0, total: 350.0 },
-      { price: 0.1248, amount: 1150.0, total: 143.52 },
-      { price: 0.1246, amount: 4500.0, total: 560.7 },
-    ] as OrderBookEntry[],
-    asks: [
-      { price: 0.1262, amount: 1800.0, total: 227.16 },
-      { price: 0.1264, amount: 2300.0, total: 290.72 },
-      { price: 0.1266, amount: 950.0, total: 120.27 },
-      { price: 0.1268, amount: 1400.0, total: 177.52 },
-      { price: 0.127, amount: 2600.0, total: 330.2 },
-      { price: 0.1272, amount: 1750.0, total: 222.6 },
-      { price: 0.1274, amount: 3200.0, total: 407.68 },
-      { price: 0.1276, amount: 900.0, total: 114.84 },
-    ] as OrderBookEntry[]
-  });
 
   // Derived stats for darkpools (driven by TransactionList visible items)
   const [totalVolume, setTotalVolume] = useState<number>(0);
@@ -162,18 +122,6 @@ export default function BookOrder({
       window.removeEventListener('siphon-tx-updated', onTxUpdate);
     };
   }, [selectedPair]);
-
-  // Mock recent activities data
-  const recentActivities = [
-    { time: "14:32:15", type: "buy", amount: 1250.0, price: 0.1268, total: 158.5 },
-    { time: "14:31:42", type: "sell", amount: 850.0, price: 0.1265, total: 107.525 },
-    { time: "14:30:18", type: "buy", amount: 2100.0, price: 0.1262, total: 265.02 },
-    { time: "14:29:55", type: "sell", amount: 950.0, price: 0.1260, total: 119.7 },
-    { time: "14:28:33", type: "buy", amount: 1800.0, price: 0.1258, total: 226.44 },
-    { time: "14:27:21", type: "sell", amount: 1400.0, price: 0.1256, total: 175.84 },
-    { time: "14:26:07", type: "buy", amount: 3200.0, price: 0.1254, total: 401.28 },
-    { time: "14:25:44", type: "sell", amount: 1150.0, price: 0.1252, total: 143.98 }
-  ];
 
   const handlePlaceOrder = async () => {
     if (isPlacingOrder) return;
@@ -229,25 +177,6 @@ export default function BookOrder({
         updateLocalTransactionStatus(txId, 'completed');
         closeLoadingModal();
       }, 3800);
-
-      // Update local order book for immediate feedback
-      const newOrder = {
-        price: parseFloat(orderPrice),
-        amount: parseFloat(orderAmount),
-        total: parseFloat(orderPrice) * parseFloat(orderAmount)
-      };
-
-      if (orderType === 'buy') {
-        setOrderBook(prev => ({
-          ...prev,
-          bids: [...prev.bids, newOrder].sort((a, b) => b.price - a.price)
-        }));
-      } else {
-        setOrderBook(prev => ({
-          ...prev,
-          asks: [...prev.asks, newOrder].sort((a, b) => a.price - b.price)
-        }));
-      }
 
       setOrderAmount("");
       setOrderPrice("");
@@ -535,61 +464,6 @@ export default function BookOrder({
           </div>
           </div>
           )}
-        </div>
-      </div>
-
-      {/* Bottom Row: Order Book + Recent Transactions */}
-      <div className="darkpool-bottom-row">
-        <div className="orderbook-section">
-          <div className="orderbook-header">
-            <span className="orderbook-title">Order Book</span>
-            <span className="pair-label">{selectedPair}</span>
-          </div>
-          <div className="orderbook-tables">
-            <div className="asks-table">
-              <div className="table-header">
-                <span>Price</span>
-                <span>Amount</span>
-                <span>Total</span>
-              </div>
-              <div className="table-body">
-                {[...orderBook.asks]
-                  .sort((a, b) => a.price - b.price)
-                  .slice(0, 3)
-                  .map((ask, idx) => (
-                    <div key={`ask-${idx}`} className="table-row ask">
-                      <span className="cell price">{ask.price.toFixed(4)}</span>
-                      <span className="cell amount">{ask.amount.toFixed(2)}</span>
-                      <span className="cell total">{ask.total.toFixed(2)}</span>
-                    </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bids-table">
-              <div className="table-header">
-                <span>Price</span>
-                <span>Amount</span>
-                <span>Total</span>
-              </div>
-              <div className="table-body">
-                {[...orderBook.bids]
-                  .sort((a, b) => b.price - a.price)
-                  .slice(0, 3)
-                  .map((bid, idx) => (
-                    <div key={`bid-${idx}`} className="table-row bid">
-                      <span className="cell price">{bid.price.toFixed(4)}</span>
-                      <span className="cell amount">{bid.amount.toFixed(2)}</span>
-                      <span className="cell total">{bid.total.toFixed(2)}</span>
-                    </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="transactions-section">
-          <TransactionList poolPair={selectedPair} maxItems={3} />
         </div>
       </div>
 
