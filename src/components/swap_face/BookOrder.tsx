@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./ProSwapMode.css";
 import PriceChart from "./extensions/PriceChart";
-import ConnectButton from "./extensions/ConnectButton";
 import { OrderParams } from "../../lib/matchingEngine";
 import { WalletInfo } from "../../lib/walletManager";
 
@@ -25,7 +24,8 @@ export default function BookOrder({
   const [orderAmount, setOrderAmount] = useState("");
   const [orderPrice, setOrderPrice] = useState("192");
   const [timeframe, setTimeframe] = useState<'1m' | '5m' | '15m' | '1h' | '4h' | '1d'>('1h');
-  const [rightPanelView, setRightPanelView] = useState<'order' | 'liquidity'>('order');
+  const [rightPanelView, setRightPanelView] = useState<'order' | 'liquidity'>('liquidity');
+  const [chartView, setChartView] = useState<'price' | 'execution'>('price');
   const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
   const BASE_SOL_USD = 192;
   const [loadingLogs, setLoadingLogs] = useState<string[]>([]);
@@ -82,46 +82,6 @@ export default function BookOrder({
   const [liquidityAction, setLiquidityAction] = useState<'add' | 'remove'>('add');
   const [solAmount, setSolAmount] = useState("");
   const [usdcAmount, setUsdcAmount] = useState("");
-
-  // Derived stats for darkpools (driven by TransactionList visible items)
-  const [totalVolume, setTotalVolume] = useState<number>(0);
-
-  const computeLocalVolume = (pair: string) => {
-    try {
-      const raw = localStorage.getItem('siphon-mock-transactions');
-      const arr = raw ? JSON.parse(raw) : [];
-      const sum = arr
-        .filter((t: any) => t && t.pair === pair)
-        .reduce((acc: number, t: any) => acc + (Number(t.total) || 0), 0);
-      return sum;
-    } catch {
-      return 0;
-    }
-  };
-
-  const formatCompactUsd = (value: number) => {
-    if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(2)}M`;
-    if (value >= 1_000) return `$${(value / 1_000).toFixed(2)}K`;
-    return `$${value.toFixed(2)}`;
-  };
-
-  // Listen for visible volume updates from TransactionList
-  useEffect(() => {
-    const onListVolume = (e: any) => {
-      if (e?.detail?.pair === selectedPair) {
-        setTotalVolume(Number(e.detail.volume || 0));
-      }
-    };
-    const onTxUpdate = () => setTotalVolume(computeLocalVolume(selectedPair));
-    window.addEventListener('siphon-tx-volume', onListVolume as EventListener);
-    window.addEventListener('siphon-tx-updated', onTxUpdate);
-    // initial
-    setTotalVolume(computeLocalVolume(selectedPair));
-    return () => {
-      window.removeEventListener('siphon-tx-volume', onListVolume as EventListener);
-      window.removeEventListener('siphon-tx-updated', onTxUpdate);
-    };
-  }, [selectedPair]);
 
   const handlePlaceOrder = async () => {
     if (isPlacingOrder) return;
@@ -219,71 +179,104 @@ export default function BookOrder({
             </button>
           </div>
         </div>
-        <div className="darkpool-header-right">
-          <ConnectButton 
-            className="darkpool-connect-button"
-            onConnected={onWalletConnected}
-          />
-        </div>
       </div>
 
       {/* Top Row: Chart (2/3) + Order Form (1/3) */}
       <div className="darkpool-top-row">
         {/* Chart Section - 2/3 width */}
         <div className="chart-section">
+          {/* Chart Type Toggle */}
+          <div className="chart-type-toggle">
+            <button 
+              className={`chart-type-btn ${chartView === 'price' ? 'active' : ''}`}
+              onClick={() => setChartView('price')}
+            >
+              Price Chart
+            </button>
+            <button 
+              className={`chart-type-btn ${chartView === 'execution' ? 'active' : ''}`}
+              onClick={() => setChartView('execution')}
+            >
+              Order Execution Prices
+            </button>
+          </div>
+
           <div className="chart-header">
-            <span className="chart-title">Price Chart</span>
+            <span className="chart-title">{chartView === 'price' ? 'Historical Price Data' : 'Order Execution Prices'}</span>
             <div className="timeframe-selector">
               <button 
                 className={`timeframe-btn ${timeframe === '1m' ? 'active' : ''}`}
                 onClick={() => setTimeframe('1m')}
+                disabled={chartView === 'execution'}
               >
                 1m
               </button>
               <button 
                 className={`timeframe-btn ${timeframe === '5m' ? 'active' : ''}`}
                 onClick={() => setTimeframe('5m')}
+                disabled={chartView === 'execution'}
               >
                 5m
               </button>
               <button 
                 className={`timeframe-btn ${timeframe === '15m' ? 'active' : ''}`}
                 onClick={() => setTimeframe('15m')}
+                disabled={chartView === 'execution'}
               >
                 15m
               </button>
               <button 
                 className={`timeframe-btn ${timeframe === '1h' ? 'active' : ''}`}
                 onClick={() => setTimeframe('1h')}
+                disabled={chartView === 'execution'}
               >
                 1h
               </button>
               <button 
                 className={`timeframe-btn ${timeframe === '4h' ? 'active' : ''}`}
                 onClick={() => setTimeframe('4h')}
+                disabled={chartView === 'execution'}
               >
                 4h
               </button>
               <button 
                 className={`timeframe-btn ${timeframe === '1d' ? 'active' : ''}`}
                 onClick={() => setTimeframe('1d')}
+                disabled={chartView === 'execution'}
               >
                 1d
               </button>
             </div>
           </div>
           
-          {/* Stats row removed; volume moved next to price in header */}
-          <div className="chart-container">
-            <PriceChart 
-              pair={selectedPair} 
-              timeframe={timeframe}
-              leftLabel="Total Volume"
-              leftValue={formatCompactUsd(totalVolume)}
-              forceMock={true}
-              mockBasePrice={192}
-            />
-          </div>
+          {chartView === 'price' ? (
+            <div className="chart-container">
+              <PriceChart 
+                pair={selectedPair} 
+                timeframe={timeframe}
+                forceMock={true}
+                mockBasePrice={192}
+              />
+            </div>
+          ) : (
+            <div className="chart-container chart-coming-soon">
+              <div className="chart-blur-overlay">
+                <PriceChart 
+                  pair={selectedPair} 
+                  timeframe={timeframe}
+                  forceMock={true}
+                  mockBasePrice={192}
+                />
+              </div>
+              <div className="coming-soon-overlay">
+                <div className="coming-soon-content">
+                  <span className="coming-soon-icon">🚧</span>
+                  <h3>Coming Soon</h3>
+                  <p>Order execution price tracking will be available soon</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Order Form + Liquidity Section - 1/3 width */}
@@ -291,16 +284,16 @@ export default function BookOrder({
           <div className="order-form-header">
             <div className="view-toggle">
               <span 
-                className={`view-toggle-text ${rightPanelView === 'order' ? 'active' : ''}`}
-                onClick={() => setRightPanelView('order')}
-              >
-                Place Order
-              </span>
-              <span 
                 className={`view-toggle-text ${rightPanelView === 'liquidity' ? 'active' : ''}`}
                 onClick={() => setRightPanelView('liquidity')}
               >
                 Manage Liquidity
+              </span>
+              <span 
+                className={`view-toggle-text ${rightPanelView === 'order' ? 'active' : ''}`}
+                onClick={() => setRightPanelView('order')}
+              >
+                Place Order
               </span>
             </div>
           </div>

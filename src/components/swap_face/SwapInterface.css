@@ -33,6 +33,163 @@
   box-shadow: none;
 }
 
+/* Top Right Wallet Connector */
+.top-right-wallet-connector {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+/* Styles for top wallet connector */
+.top-connect-button .wallet-selector {
+  width: auto;
+  pointer-events: auto;
+}
+
+.top-connect-button .wallet-selector-trigger {
+  width: auto;
+  min-width: 180px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 0.5rem 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-source-code), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+}
+
+.top-connect-button .wallet-selector-trigger:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.top-connect-button .connected-wallet-button {
+  width: auto;
+  min-width: 180px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 0.5rem 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  font-family: var(--font-source-code), monospace;
+  backdrop-filter: blur(8px);
+}
+
+.top-connect-button .connected-wallet-button:hover {
+  background: rgba(255, 0, 0, 0.2);
+  border-color: rgba(255, 0, 0, 0.35);
+}
+
+.top-connect-button .wallet-info {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+}
+
+.top-connect-button .wallet-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  flex-shrink: 0;
+  padding: 4px;
+}
+
+.top-connect-button .wallet-icon-wrapper svg {
+  width: 20px;
+  height: 20px;
+}
+
+.top-connect-button .wallet-icon-text {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.top-connect-button .wallet-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.top-connect-button .wallet-address {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.top-connect-button .disconnect-text {
+  font-size: 9px;
+  color: rgba(255, 100, 100, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.top-connect-button .connected-wallet-button:hover .disconnect-text {
+  color: rgba(255, 50, 50, 1);
+}
+
+.top-connect-button .wallet-selector {
+  position: relative;
+}
+
+.top-connect-button .wallet-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  left: auto;
+  width: 300px;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  z-index: 10000;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  animation: slideDown 0.2s ease;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Solflare Wallet Container - Over Swap Interface */
 .solflare-wallet-container {
   position: absolute;

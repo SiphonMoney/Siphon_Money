@@ -242,7 +242,10 @@ export default function ProSwapMode({
   };
 
   return (
-    <div className={`three-columns ${isLoaded ? 'loaded' : ''}`}>
+    <div className="pro-mode-wrapper">
+      {/* Blurred Content */}
+      <div className="pro-mode-blur-overlay">
+        <div className={`three-columns ${isLoaded ? 'loaded' : ''}`}>
       {/* Toasts - top right */}
       {toasts.length > 0 && (
         <div className="toast-container">
@@ -800,6 +803,23 @@ export default function ProSwapMode({
             'Execute Withdrawals'
           )}
         </button>
+      </div>
+    </div>
+      </div>
+
+      {/* Coming Soon Overlay */}
+      <div className="pro-mode-coming-soon-overlay">
+        <div className="pro-mode-coming-soon-content">
+          <span className="coming-soon-icon">⚡</span>
+          <h3>Pro Mode Coming Soon</h3>
+          <p>Advanced multi-chain swap aggregation with privacy-preserving order batching</p>
+          <div className="pro-mode-features">
+            <div className="feature-item">✓ Multi-step swap strategies</div>
+            <div className="feature-item">✓ Cross-chain liquidity routing</div>
+            <div className="feature-item">✓ Encrypted batch execution</div>
+            <div className="feature-item">✓ Zero-knowledge proof verification</div>
+          </div>
+        </div>
       </div>
     </div>
   );

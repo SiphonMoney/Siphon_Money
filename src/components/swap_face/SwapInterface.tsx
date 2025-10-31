@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import "./SwapInterface.css";
 import ProSwapMode from "./ProSwapMode";
 import BookOrder from "./BookOrder";
+import ConnectButton from "./extensions/ConnectButton";
 import { WalletInfo } from "../../lib/walletManager";
 
 export default function SwapInterface() {
@@ -63,6 +64,14 @@ export default function SwapInterface() {
         >
           Pro
         </button>
+      </div>
+
+      {/* Top Right Wallet Connector */}
+      <div className="top-right-wallet-connector">
+        <ConnectButton 
+          className="top-connect-button"
+          onConnected={handleWalletConnected}
+        />
       </div>
 
       <div className={`siphon-window ${isLoaded ? 'loaded' : ''} ${mode === 'pro' ? 'pro-mode' : 'darkpool-mode'}`}>

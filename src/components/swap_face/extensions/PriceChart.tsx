@@ -154,7 +154,6 @@ export default function PriceChart({ pair, timeframe = '1h', leftLabel, leftValu
     return (
       <div className="price-chart loading">
         <div className="chart-header">
-          <h4>{pair} Price Chart</h4>
           <div className="loading-spinner"></div>
         </div>
         <div className="chart-placeholder">
@@ -167,17 +166,7 @@ export default function PriceChart({ pair, timeframe = '1h', leftLabel, leftValu
   return (
     <div className="price-chart">
       <div className="chart-header">
-        <div>
-          <h4>{pair} Price Chart</h4>
-          <span className="historical-data-note">historical price data</span>
-        </div>
         <div className="price-info">
-            {leftLabel && leftValue && (
-              <span className="left-stat">
-                <span className="label">{leftLabel}:</span>
-                <span className="value">{leftValue}</span>
-              </span>
-            )}
           <span className="current-price">{formatPrice(currentPrice)}</span>
         </div>
       </div>
