@@ -103,19 +103,13 @@
   <tr>
     <td width="33%" align="center">
 
-#### 🔐 **FHE**  
-**Fully Homomorphic Encryption**  
-Enables computation on encrypted data
+#### 🔐 **In-App settlement**  
+**In app ledger based secure settlement**  
+No one else except for the user will know about their funds and placed orders
 
   </td>
     <td width="33%" align="center">
 
-#### 🎭 **ZK Proofs**  
-**Zero-Knowledge Proofs**  
-Proves correctness—no data revealed
-
-  </td>
-    <td width="33%" align="center">
 
 #### 🌉 ** Arcium (MPC)*  
 **Multi‑Party Computation Execution**  
@@ -125,14 +119,6 @@ Decentralized MPC network for private, verifiable off‑chain/on‑chain computa
   </tr>
 
   <tr>
-    <td width="33%" align="center">
-
-#### 🔁 Atomic swaps**  
-**Cross‑chain, trustless asset exchange**  
-Peer‑to‑peer on/off‑ramp and private coin swapping
-
-
-  </td>
     <td width="33%" align="center">
 
 #### ⚙️ **Solana**  
@@ -226,7 +212,6 @@ Siphon Protocol should integrate multiple compliance mechanisms to address regul
 
 ### 🚀 DarkPool Workflow
 
-https://github.com/arnabnandikgp/matching-engine/blob/main/UPDATED_IN_APP_SETTLEMENT_ARCHITECTURE.md
 
 
 #### 1. **Encrypted Order Submission**
