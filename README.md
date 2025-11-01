@@ -2,7 +2,9 @@
 
 # Siphon Protocol
 
-> **Enabling untraceable, hyperliquid and institutional-grade DeFi privacy**
+> **Trade in the Shadows, Verify in the Light**
+> 
+> The first truly private DEX where users can see their balances but not others' - powered by Multi-Party Computation on Solana.
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
@@ -16,351 +18,986 @@
 
 ---
 
-## 🎯 The Problem We Solve
+## 🚀 What Makes This Special?
 
-### ⚠️ Three Critical Privacy Crises in DeFi:
+Traditional DEXs are **completely transparent** - everyone sees your balances, orders, and trading patterns. Privacy solutions like Tornado Cash are **completely opaque** - you can't even see your own balance without trial-and-error.
 
-<table>
-<tr>
-<td width="33%">
+**We solved both problems.**
 
-#### 🔍 **Wallets Are Tracked**
+### The Innovation: User-Decryptable Encrypted Balances
 
-- **Chain analytics links addresses** timing, and flows into identities.
-- **Your PNL**, history and every move are visible.
+```mermaid
+graph LR
+    A[Your Private Key] -->|x25519 ECDH| B[Shared Secret]
+    C[MPC Public Key] -->|x25519 ECDH| B
+    B -->|Decrypt| D[Your Balance: 100 SOL]
+    E[On-Chain State] -->|Enc<Shared, Balance>| D
+    
+    style A fill:#4CAF50
+    style C fill:#2196F3
+    style D fill:#FF9800
+    style E fill:#9C27B0
+```
 
-</td>
-<td width="33%">
-
-#### 🤖 **Value is Extracted**
-
-- **Visible flow** widens quotes and worsens fills.
-- **Sniping and MEV** extraction destroys profitability.
-
-</td>
-<td width="33%">
-
-#### 💰 **Liquidity is Siloed**
-
-- **Privacy coins** and pools lack DeFi integration
-- **Users forced** to choose: privacy OR best execution
-
-</td>
-</tr>
-</table>
-
-### 📊 Market Reality
-
-- **$300M+** lost monthly to front-running attacks on DEXs
-- **$12B** in privacy coin market cap lacks DeFi integration
-- **Zero** truly private DEXs with easy access to global liquidity
+**You** can decrypt your balance. **MPC** can validate operations. **Nobody else** can see anything.
 
 ---
 
-## 🚀 The Siphon Protocol
+## 🏗️ System Architecture
 
-### 🌉 **The Solana Privacy Box**
-
-**Siphon serves as the seamless privacy-preserving gateway between public and private capital, facilitating secure, private and verifiable movement of assets across multiple blockchains. By enabling frictionless access to the deepest, most liquid DeFi opportunities in a true omnichain environment, Siphon empowers institutions and individuals alike to transact and deploy strategies at scale—without sacrificing confidentiality, competitive edge, or market efficiency.**
-
-</div>
-
-### ✨ Key Features
-
-
-### 🔒 Privacy-First Design
-
-- **Encrypted Balances**: User balances stored as `Enc<Shared, Balances>` - users can decrypt their own data using x25519 keys
-- **Confidential Orderbook**: Orders encrypted with `Enc<Mxe, OrderBook>` - only MPC network can process
-- **Dark Pool Matching**: Order matching happens on encrypted data without revealing prices or quantities
-
-### 🔐 MPC-Powered Operations
-
-- **Balance Validation**: MPC verifies encrypted balances before withdrawals
-- **Order Matching**: Confidential computation finds matching orders without exposing trader information
-- **Cryptographic Guarantees**: All operations verified through secure multi-party computation
-
-### 💰 Secure Liquidity Management
-
-- **Deposit Flow**: `deposit_to_ledger` → SPL transfer → MPC updates encrypted balance
-- **Withdrawal Flow**: Two-step process:
-  1. `withdraw_from_ledger_verify` - MPC validates sufficient balance
-  2. `withdraw_from_vault` - Cranker bot executes token transfer
-- **Vault Security**: PDA-based vault authority ensures only authorized withdrawals
-
-### 📡 Event-Driven Architecture
-
-- **Real-time Updates**: WebSocket push notifications for balance changes, order fills, withdrawals
-- **Event Types**:
-  - `UserLedgerInitializedEvent`
-  - `UserLedgerDepositedEvent`
-  - `UserLedgerWithdrawVerifiedSuccessEvent` / `FailedEvent`
-  - `WithdrawEvent`
-  - `OrderProcessedEvent` / `MatchResultEvent`
-- **Persistent Storage**: Backend indexer stores events in PostgreSQL for historical queries
-
-### 🛡️ Security Features
-
-- **Nonce-based Encryption**: Each encrypted state includes nonce for replay protection
-- **Computation Verification**: All MPC computations verified before state updates
-- **Cranker Bot Authentication**: Hardcoded public key ensures only authorized bot executes withdrawals
-- **PDA-based Access Control**: Solana PDAs enforce program-level security
-
-## Technical Stack
-
-- **Blockchain**: Solana (localnet/devnet)
-- **MPC Framework**: Arcium Network
-- **Smart Contract**: Anchor Framework (Rust)
-- **Encryption**: x25519 (user keys), Rescue cipher (balance encryption)
-- **Frontend**: React + TypeScript + Zustand
-- **Backend**: Node.js event indexer + PostgreSQL
-- **Testing**: TypeScript + Mocha/Chai
-
-
-<!-- #### 🌐 **Omnichain Routing**
-- Hyperliquid execution across multiple chains
-- Privacy preserved end-to-end
-
-</td>
-</tr>
-</table> -->
-
-![Siphon Architecture Diagram](./docs/protocol.png)
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 🎨 Frontend Layer (React + TypeScript)                      │
+│ ┌─────────────────────────────────────────────────────────┐ │
+│ │ • Wallet Connection (Phantom, Solflare, etc.)           │ │
+│ │ • x25519 Key Management (localStorage + encryption)     │ │
+│ │ • Balance Decryption Engine (RescueCipher)              │ │
+│ │ • Real-time WebSocket Client                            │ │
+│ │ • Transaction Builder (Anchor integration)              │ │
+│ │ • Responsive UI (Tailwind CSS)                          │ │
+│ └─────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                              ↕ HTTPS + WebSocket
+┌─────────────────────────────────────────────────────────────┐
+│ 🔧 Backend Services (Node.js + PostgreSQL)                  │
+│ ┌─────────────────────────────────────────────────────────┐ │
+│ │ Event Indexer                                           │ │
+│ │ ├─ Listens to Solana program events                    │ │
+│ │ ├─ Stores events in PostgreSQL                         │ │
+│ │ └─ Broadcasts via WebSocket                            │ │
+│ │                                                          │ │
+│ │ REST API Server                                         │ │
+│ │ ├─ GET /balances/:user                                  │ │
+│ │ ├─ GET /withdrawals/:user                               │ │
+│ │ ├─ GET /orders/:user (future)                           │ │
+│ │ └─ Historical data queries                              │ │
+│ │                                                          │ │
+│ │ WebSocket Server                                        │ │
+│ │ ├─ Real-time event streaming                            │ │
+│ │ ├─ User-specific filtering (pubkey subscription)        │ │
+│ │ └─ Event types: deposit, withdraw, order fill          │ │
+│ └─────────────────────────────────────────────────────────┘ │
+│ ┌─────────────────────────────────────────────────────────┐ │
+│ │ 🤖 Cranker Bot (Automated Withdrawal Executor)          │ │
+│ │ ├─ Listens: UserLedgerWithdrawVerifiedSuccessEvent     │ │
+│ │ ├─ Validates: Event authenticity + user signature       │ │
+│ │ ├─ Executes: withdraw_from_vault(user, amount)          │ │
+│ │ └─ Signs with authorized keypair                        │ │
+│ └─────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                              ↕ RPC Calls
+┌─────────────────────────────────────────────────────────────┐
+│ ⚡ Solana Program (Anchor + Arcium MPC)                     │
+│ ┌─────────────────────────────────────────────────────────┐ │
+│ │ UserPrivateLedger Accounts (PDA)                        │ │
+│ │ ├─ owner: Pubkey                                        │ │
+│ │ ├─ encrypted_balances: [[u8; 32]; 4]  ← Enc<Shared>    │ │
+│ │ ├─ balance_nonce: u128                                  │ │
+│ │ └─ last_update: i64                                     │ │
+│ │                                                          │ │
+│ │ SPL Token Vaults (PDA)                                  │ │
+│ │ ├─ vault_authority: PDA (program-controlled)            │ │
+│ │ ├─ base_vault: TokenAccount (SOL)                       │ │
+│ │ └─ quote_vault: TokenAccount (USDC)                     │ │
+│ └─────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                              ↕ Computation Queue
+┌─────────────────────────────────────────────────────────────┐
+│ 🔐 Arcium MPC Network                                        │
+│ ┌─────────────────────────────────────────────────────────┐ │
+│ │ Encrypted Circuits (encrypted-ixs)                      │ │
+│ │ ├─ init_user_ledger(user_pubkey) → Enc<Shared, 0>      │ │
+│ │ ├─ update_ledger_deposit(bal, amt) → Enc<Shared, new>  │ │
+│ │ ├─ update_ledger_withdraw(bal, amt) → (Enc<..>, bool)  │ │
+│ │ ├─ submit_order(book, order) → Enc<Mxe, OrderBook>     │ │
+│ │ ├─ match_orders(book) → Enc<Shared, Matches>           │ │
+│ │ └─ execute_settlement(u1, u2, amt) → (Enc<..>, Enc<..>)│ │
+│ └─────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🛠️ Technical Architecture
+## 🎯 User Journeys
 
-### 🔧 Core Technologies
+### Journey 1: First-Time Deposit
 
-<table>
-  <tr>
-    <td width="33%" align="center">
-
-#### 🔐 **In-App settlement**
-
-**In app ledger based secure settlement**  
-No one else except for the user will know about their funds and placed orders
-
-  </td>
-    <td width="33%" align="center">
-
-#### 🌉 \*_ Arcium (MPC)_
-
-**Multi‑Party Computation Execution**  
-Decentralized MPC network for private, verifiable off‑chain/on‑chain computation
-
-  </td>
-  </tr>
-
-  <tr>
-    <td width="33%" align="center">
-
-#### ⚙️ **Solana**
-
-**Execution & Settlement Layer**  
-Secure, composable, and composable foundation for DeFi.
-
-  </td>
-  </tr>
-</table>
-
-### 🔗 Matching Engine Submodule
-
-This repository includes the dark pool matching engine as a Git submodule at `matching-engine/`.
-
-```bash
-# If you cloned without submodules, initialize now
-git submodule update --init --recursive
-
-# To pull latest changes from the submodule
-git submodule update --remote --merge
+```mermaid
+sequenceDiagram
+    actor User
+    participant Frontend
+    participant Wallet
+    participant Solana
+    participant MPC
+    participant Backend
+    
+    User->>Frontend: Click "Deposit 100 SOL"
+    Frontend->>Wallet: Request signature
+    Wallet->>User: Approve transaction?
+    User->>Wallet: ✅ Approve
+    Wallet->>Solana: deposit_to_ledger(100)
+    
+    Note over Solana: SPL Transfer: User → Vault
+    
+    Solana->>MPC: Queue: update_ledger_deposit
+    MPC->>MPC: Decrypt balance: 0<br/>Add: 0 + 100 = 100<br/>Re-encrypt with new nonce
+    MPC->>Solana: Callback with Enc<Shared, 100>
+    
+    Note over Solana: Update UserPrivateLedger<br/>Emit UserLedgerDepositedEvent
+    
+    Solana->>Backend: Event: { user, nonce, encrypted_balances }
+    Backend->>Frontend: WebSocket: DepositEvent
+    
+    Frontend->>Frontend: x25519.decrypt(encrypted_balances)
+    Frontend->>User: 🎉 Balance: 100 SOL
 ```
 
-For details about the matching engine architecture and specs, see:
+**Time to completion:** ~5-10 seconds (MPC computation + finalization)
 
-- [Overall System Architecture](https://github.com/arnabnandikgp/matching-engine/blob/main/Overall_system_architecture.md)
-- [Technical Overview Presentation](https://github.com/arnabnandikgp/matching-engine/blob/main/TECHNICAL_OVERVIEW_PRESENTATION.md)
+---
 
-### The Five-Layer Architecture:
+### Journey 2: Withdrawal (Two-Step Process)
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ Layer 5: User Interface & Event System                      │
-│ - Real-time WebSocket event streaming                       │
-│ - User-decryptable encrypted balances (Shared encryption)   │
-│ - Frontend React integration with x25519 key management     │
-│ - Event indexer + PostgreSQL persistence                    │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│ Layer 4: Settlement & Withdrawal                            │
-│ - Two-step withdrawal verification (MPC → Cranker)          │
-│ - Cryptographic balance validation before token transfer    │
-│ - Cranker bot for automated vault execution                 │
-│ - Event-driven settlement triggers                          │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│ Layer 3: MPC Computation Layer (Arcium Network)             │
-│ - Encrypted order book (Mxe encryption)                     │
-│ - Confidential order matching on encrypted data             │
-│ - Private balance updates with MPC validation               │
-│ - Order matching without revealing prices/quantities        │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│ Layer 2: Encrypted State Management                         │
-│ - UserPrivateLedger: User-decryptable balances (Shared)     │
-│ - OrderBookState: MPC-only encrypted orderbook (Mxe)        │
-│ - Nonce-based encryption for replay protection              │
-│ - On-chain encrypted state storage                          │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│ Layer 1: Vault & Token Management                           │
-│ - SPL token vaults with PDA authority                       │
-│ - Deposit: Public tokens → Encrypted balances               │
-│ - Withdraw: MPC-verified → Cranker-executed transfers       │
-│ - Base/Quote token pairs (SOL/USDC, etc.)                   │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+sequenceDiagram
+    actor User
+    participant Frontend
+    participant Solana
+    participant MPC
+    participant Cranker
+    participant Backend
+    
+    User->>Frontend: Click "Withdraw 30 SOL"
+    Frontend->>Solana: withdraw_from_ledger_verify(30)
+    
+    Solana->>MPC: Queue: verify withdrawal
+    MPC->>MPC: Decrypt balance: 100<br/>Check: 100 >= 30? ✅<br/>Subtract: 100 - 30 = 70<br/>Re-encrypt
+    MPC->>Solana: Callback: (Enc<Shared, 70>, true)
+    
+    Note over Solana: Update encrypted balance<br/>Emit WithdrawVerifiedSuccessEvent
+    
+    Solana->>Backend: Event: { user, amount: 30 }
+    Backend->>Cranker: 🔔 Withdrawal verified!
+    Backend->>Frontend: WebSocket: WithdrawPending
+    
+    Cranker->>Cranker: Validate event signature
+    Cranker->>Solana: withdraw_from_vault(30, user)
+    
+    Note over Solana: SPL Transfer: Vault → User<br/>Signed by cranker bot<br/>Emit WithdrawEvent
+    
+    Solana->>Backend: Event: { user, amount: 30 }
+    Backend->>Frontend: WebSocket: WithdrawComplete
+    Frontend->>User: ✅ 30 SOL in your wallet!
 ```
 
-## ⚖️ Compliance & Regulatory Considerations
+**Why two steps?**
+1. **Step 1 (MPC)**: Validate balance cryptographically → Lock funds in encrypted state
+2. **Step 2 (Cranker)**: Execute actual token transfer after validation
 
-Siphon Protocol should integrate multiple compliance mechanisms to address regulatory requirements while maintaining core privacy principles:
+This prevents **unauthorized withdrawals** even if an attacker compromises the cranker bot.
 
-### 🛡️ Risk Screening Gate
+---
 
-- **On-Chain Risk Oracle Integration**: Funds entering the Siphon Vault must pass validation through established risk oracles (e.g., Chainalysis, TRM, or in-protocol scoring systems)
-- **Source Verification**: Addresses are screened against known restricted or sanctioned lists before admission
+### Journey 3: Order Submission (Future)
 
-### 🔐 Zero-Knowledge Proof of Compliance
+```mermaid
+sequenceDiagram
+    actor Trader
+    participant Frontend
+    participant Solana
+    participant MPC
+    participant Backend
+    
+    Trader->>Frontend: Place order: Buy 10 SOL @ 105 USDC
+    Frontend->>Frontend: Encrypt: x25519(price=105, qty=10)
+    Frontend->>Solana: submit_order(encrypted_order)
+    
+    Solana->>MPC: Queue: add to orderbook
+    MPC->>MPC: Decrypt orderbook<br/>Insert order (encrypted)<br/>Re-encrypt entire book
+    MPC->>Solana: Callback: Enc<Mxe, NewOrderBook>
+    
+    Note over Solana: OrderBook updated<br/>Emit OrderProcessedEvent<br/>{ order_id, status: "pending" }
+    
+    Solana->>Backend: Event: OrderProcessed
+    Backend->>Frontend: WebSocket: OrderAccepted
+    Frontend->>Trader: ✅ Order #42 placed!
+    
+    Note over Trader: Trader CANNOT see:<br/>• Other orders<br/>• Liquidity depth<br/>• Market spread<br/><br/>Only MPC sees full orderbook
+```
 
-- **Privacy-Preserving Verification**: Users can prove they meet KYC/AML requirements without revealing identity
-- **Compliant Service Provider Integration**: Works with compliance providers to generate non-revealing proofs
-- **Address Sanctioning**: Demonstrates funds are not from restricted address lists, cryptographically
+---
 
-### 📊 Verifiable Transparency Layer
+## 🖥️ Frontend Features
 
-- **Per-Batch Proofs**: Each execution batch emits a zero-knowledge event proving:
-  - Encrypted trades were executed correctly
-  - State updates followed protocol rules
-  - Fees were computed and distributed correctly
-  - All without revealing underlying sensitive data
-- **Cryptographic Guarantees**: Mathematical proofs ensure system integrity
-- **Audit Trail**: Maintains verifiable record of protocol correctness while preserving user privacy
+### Dashboard
+```
+┌────────────────────────────────────────────────────────────┐
+│  Dark Pool DEX                              [Connect Wallet]│
+├────────────────────────────────────────────────────────────┤
+│                                                             │
+│  💰 Your Private Balance                                   │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  SOL:  100.5 ████████████████████░░░░  (Available)   │  │
+│  │       +120.0 ████████████████████████  (Total)       │  │
+│  │                                                       │  │
+│  │  USDC: 5,432 ████████████████░░░░░░░░  (Available)   │  │
+│  │       +6,000 ████████████████████████  (Total)       │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                             │
+│  🔐 Encrypted State: Verified ✓                            │
+│  Last Updated: 2 minutes ago                               │
+│  Nonce: 42                                                 │
+│                                                             │
+│  [Deposit]  [Withdraw]  [Trade]                            │
+│                                                             │
+├────────────────────────────────────────────────────────────┤
+│  📊 Recent Activity                                        │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │ 🟢 Deposit    +100 SOL        2 min ago              │  │
+│  │ 🔴 Withdraw   -30 SOL         5 min ago   [Receipt]  │  │
+│  │ 🟡 Order #41  Filled @ 103    10 min ago  [Details]  │  │
+│  └──────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────┘
+```
 
-> **Note**: These compliance mechanisms are part of the architectural design and serve to demonstrate how privacy and regulatory compliance can coexist. Real-world implementation would require integration with licensed compliance service providers and legal frameworks.
+### Withdrawal Modal
+```
+┌────────────────────────────────────────────┐
+│  Withdraw SOL                          [X] │
+├────────────────────────────────────────────┤
+│                                            │
+│  Amount                                    │
+│  ┌──────────────────────────────────────┐ │
+│  │ 30                              [MAX]│ │
+│  └──────────────────────────────────────┘ │
+│                                            │
+│  Available: 100.5 SOL                     │
+│                                            │
+│  ⚠️  Two-step withdrawal:                 │
+│  1. MPC validates balance (5-10s)         │
+│  2. Cranker executes transfer (3-5s)      │
+│                                            │
+│  Total time: ~15 seconds                  │
+│                                            │
+│  [Cancel]              [Withdraw 30 SOL]  │
+└────────────────────────────────────────────┘
+```
 
-### 🚀 DarkPool Workflow
+### Key Management
+```
+┌────────────────────────────────────────────┐
+│  🔑 Encryption Keys                    [X] │
+├────────────────────────────────────────────┤
+│                                            │
+│  Your x25519 Private Key                  │
+│  ┌──────────────────────────────────────┐ │
+│  │ fa3b7c...9d2e (hidden)         [👁️]│ │
+│  └──────────────────────────────────────┘ │
+│                                            │
+│  Storage: Browser localStorage (encrypted)│
+│  Encryption: AES-256-GCM with wallet key  │
+│                                            │
+│  ⚠️  Important:                            │
+│  • Never share this key                   │
+│  • Backup securely (not screenshot!)      │
+│  • Required to decrypt your balance       │
+│                                            │
+│  [Export Backup]  [Delete Key]            │
+└────────────────────────────────────────────┘
+```
 
-#### 1. **Encrypted Order Submission**
+---
 
-```rust
-// Orders encrypted with x25519 + RescueCipher
-let encrypted_order = Enc<Shared, OrderData> {
-    amount: encrypted_amount,
-    price: encrypted_price,
-    user_pubkey: pubkey_chunks,
-    nonce: orderbook_nonce
+## 🔧 Backend Services
+
+### 1. Event Indexer
+
+**Purpose:** Listen to all program events and persist to database
+
+```typescript
+// services/eventIndexer.ts
+class EventIndexer {
+  async start() {
+    // Subscribe to program event logs
+    connection.onLogs(programId, (logs) => {
+      const events = parseEvents(logs);
+      
+      for (const event of events) {
+        switch (event.name) {
+          case 'UserLedgerDepositedEvent':
+            await db.deposits.create({
+              user: event.data.user,
+              nonce: event.data.balanceNonce,
+              encryptedBalances: event.data.encryptedBalances,
+              timestamp: event.data.lastUpdate
+            });
+            
+            // Broadcast to WebSocket clients
+            wss.sendToUser(event.data.user, {
+              type: 'deposit',
+              data: event.data
+            });
+            break;
+            
+          case 'UserLedgerWithdrawVerifiedSuccessEvent':
+            await db.withdrawals.create({
+              user: event.data.user,
+              status: 'verified',
+              // ... store event data
+            });
+            
+            // Notify cranker bot
+            crankerQueue.add({ event: event.data });
+            break;
+        }
+      }
+    });
+  }
+}
+```
+
+### 2. REST API
+
+**Endpoints:**
+
+```typescript
+// GET /api/v1/balance/:user
+// Returns latest encrypted balance from database
+{
+  "user": "HN7cAB...",
+  "encryptedBalances": [
+    [123, 45, 67, ...],  // 4 chunks of 32 bytes
+    [...],
+    [...],
+    [...]
+  ],
+  "nonce": 42,
+  "lastUpdate": 1699564234
+}
+
+// GET /api/v1/withdrawals/:user
+// Returns withdrawal history
+{
+  "withdrawals": [
+    {
+      "id": "abc123",
+      "amount": 30,
+      "status": "completed",
+      "verifiedAt": 1699564200,
+      "executedAt": 1699564210,
+      "txSignature": "5kF7..."
+    }
+  ]
+}
+
+// GET /api/v1/orders/:user (future)
+// Returns order history
+{
+  "orders": [
+    {
+      "id": 41,
+      "type": "buy",
+      "status": "filled",
+      "filledAt": 1699564100
+    }
+  ]
+}
+```
+
+### 3. WebSocket Server
+
+**Connection:**
+
+```typescript
+// Client-side
+const ws = new WebSocket('wss://api.darkpool.xyz/ws');
+
+// Subscribe to user-specific events
+ws.send(JSON.stringify({
+  type: 'subscribe',
+  user: walletPublicKey.toBase58()
+}));
+
+// Receive events
+ws.onmessage = (msg) => {
+  const event = JSON.parse(msg.data);
+  
+  switch (event.type) {
+    case 'deposit':
+      // Update balance in UI
+      updateBalance(event.data);
+      break;
+      
+    case 'withdraw_verified':
+      // Show "Processing withdrawal..."
+      showPendingWithdrawal(event.data);
+      break;
+      
+    case 'withdraw_complete':
+      // Show "Withdrawal complete!"
+      showSuccessToast(event.data);
+      break;
+  }
 };
 ```
 
-#### 2. **Confidential Matching Process**
+### 4. Cranker Bot
 
-- **MPC network** decrypts orderbook confidentially
-- **Price-time priority** matching executed off-chain
-- **Results encrypted** for blind access
+**Purpose:** Execute verified withdrawals automatically
 
-#### 3. **Private Settlement Execution**
-
-- **Backend decrypts** match results using match nonce
-- **SPL token transfers** executed on Solana
-- **Encrypted vault balances** updated
-- **Settlement history** privately proofed
-
-### 🔒 Unbreakable Privacy
-
-- **Order amounts/prices**: Never stored in plaintext
-- **Orderbook structure**: Hidden in encrypted ciphertext
-- **Match execution**: Only revealed to matched parties
-- **Vault balances**: Encrypted state management
-- **Transaction history**: Zero-knowledge proofs only
-- **Portfolio strategies**: Completely invisible to competitors
+```typescript
+// services/crankerBot.ts
+class CrankerBot {
+  private keypair: Keypair; // 8wJE7H7svhpz...
+  
+  async start() {
+    // Listen for verified withdrawals
+    program.addEventListener('UserLedgerWithdrawVerifiedSuccessEvent', 
+      async (event) => {
+        console.log(`Withdrawal verified for ${event.user}`);
+        
+        // Validate event authenticity
+        if (!this.validateEvent(event)) {
+          console.error('Invalid event signature!');
+          return;
+        }
+        
+        // Execute withdrawal
+        try {
+          const tx = await program.methods
+            .withdrawFromVault(event.amount, event.user)
+            .accounts({
+              payer: this.keypair.publicKey,
+              vaultAuthority: vaultAuthorityPDA,
+              vault: vaultPDA,
+              userTokenAccount: userATA,
+              // ...
+            })
+            .signers([this.keypair])
+            .rpc();
+            
+          console.log(`✅ Withdrawal executed: ${tx}`);
+          
+        } catch (error) {
+          console.error(`❌ Withdrawal failed: ${error}`);
+          // Implement retry logic
+        }
+      }
+    );
+  }
+}
+```
 
 ---
 
-## 🚀 Quick Start
+## 📊 Database Schema
 
-### 📋 Prerequisites
+```sql
+-- PostgreSQL Schema
 
-- **Node.js** 18+
-- **Rust** 1.75+ with Solana toolchain
-- **Solana CLI** 1.18+
-- **Anchor Framework** 0.31.1
-- **Arcium CLI** - For MPC network interaction
+-- Users table
+CREATE TABLE users (
+  pubkey VARCHAR(44) PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT NOW(),
+  last_seen TIMESTAMP
+);
 
-### ⚡ Installation
+-- Balances (cached from events)
+CREATE TABLE balances (
+  id SERIAL PRIMARY KEY,
+  user_pubkey VARCHAR(44) REFERENCES users(pubkey),
+  encrypted_balances BYTEA,  -- Store as binary
+  balance_nonce NUMERIC(39, 0),  -- u128
+  last_update BIGINT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  
+  UNIQUE(user_pubkey)
+);
 
-```bash
-# Clone the repository with submodules
-git clone --recurse-submodules https://github.com/undefinedlab/siphon_sol.git
-cd siphon_sol
+-- Deposits
+CREATE TABLE deposits (
+  id SERIAL PRIMARY KEY,
+  user_pubkey VARCHAR(44) REFERENCES users(pubkey),
+  amount BIGINT,
+  token VARCHAR(10),  -- 'SOL' or 'USDC'
+  tx_signature VARCHAR(88),
+  balance_nonce NUMERIC(39, 0),
+  created_at TIMESTAMP DEFAULT NOW()
+);
 
-# Install dependencies
-npm install
+-- Withdrawals
+CREATE TABLE withdrawals (
+  id SERIAL PRIMARY KEY,
+  user_pubkey VARCHAR(44) REFERENCES users(pubkey),
+  amount BIGINT,
+  token VARCHAR(10),
+  status VARCHAR(20),  -- 'verified', 'executing', 'completed', 'failed'
+  verify_tx VARCHAR(88),
+  execute_tx VARCHAR(88),
+  verified_at TIMESTAMP,
+  executed_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 
-# Install Arcium CLI (see: https://docs.arcium.com/developers/installation)
-# Then build the dark pool matching engine
-cd matching-engine
-yarn install
-arcium build
-cd ..
+-- Orders (future)
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  order_id BIGINT,
+  user_pubkey VARCHAR(44) REFERENCES users(pubkey),
+  order_type VARCHAR(10),  -- 'buy' or 'sell'
+  status VARCHAR(20),  -- 'pending', 'filled', 'cancelled'
+  tx_signature VARCHAR(88),
+  created_at TIMESTAMP DEFAULT NOW()
+);
 
-# Start Arcium localnet (in separate terminal)
-arcium localnet
-
-# Run development server
-npm run dev
+-- Indexes
+CREATE INDEX idx_balances_user ON balances(user_pubkey);
+CREATE INDEX idx_deposits_user ON deposits(user_pubkey);
+CREATE INDEX idx_withdrawals_user ON withdrawals(user_pubkey);
+CREATE INDEX idx_withdrawals_status ON withdrawals(status);
+CREATE INDEX idx_orders_user ON orders(user_pubkey);
 ```
 
-🌐 Open [http://localhost:3000](http://localhost:3000) to see the application.
+---
 
-### 📜 Available Scripts
+## 🔐 Frontend Security
 
-| Command         | Description                       |
-| --------------- | --------------------------------- |
-| `npm run dev`   | 🚀 Start development server       |
-| `npm run build` | 🏗️ Build for production           |
-| `npm run start` | ▶️ Start production server        |
-| `npm run lint`  | 🔍 Run ESLint                     |
-| `npm run test`  | 🧪 Run tests                      |
-| `arcium test`   | 🔒 Test dark pool matching engine |
+### Key Management Strategy
+
+```typescript
+// utils/keyManagement.ts
+
+/**
+ * Generate or retrieve user's x25519 keypair
+ * Stored encrypted in localStorage with wallet's signature as key
+ */
+export async function getOrCreateUserKeys(
+  wallet: WalletContextState
+): Promise<{ privateKey: Uint8Array; publicKey: Uint8Array }> {
+  
+  const storageKey = `x25519_keys_${wallet.publicKey.toBase58()}`;
+  
+  // Check if keys exist
+  const encrypted = localStorage.getItem(storageKey);
+  
+  if (encrypted) {
+    // Decrypt with wallet signature
+    const message = "Decrypt my balance encryption keys";
+    const signature = await wallet.signMessage(
+      new TextEncoder().encode(message)
+    );
+    
+    const privateKey = await decryptWithSignature(encrypted, signature);
+    const publicKey = x25519.getPublicKey(privateKey);
+    
+    return { privateKey, publicKey };
+  }
+  
+  // Generate new keys
+  const privateKey = x25519.generateSecretKey();
+  const publicKey = x25519.getPublicKey(privateKey);
+  
+  // Encrypt and store
+  const message = "Encrypt my balance encryption keys";
+  const signature = await wallet.signMessage(
+    new TextEncoder().encode(message)
+  );
+  
+  const encrypted = await encryptWithSignature(privateKey, signature);
+  localStorage.setItem(storageKey, encrypted);
+  
+  return { privateKey, publicKey };
+}
+
+/**
+ * Decrypt user's balance from encrypted state
+ */
+export async function decryptBalance(
+  encryptedBalances: Uint8Array[],
+  nonce: bigint,
+  userPrivateKey: Uint8Array,
+  mxePublicKey: Uint8Array
+): Promise<{ base_total: bigint; base_available: bigint; quote_total: bigint; quote_available: bigint }> {
+  
+  // Derive shared secret
+  const sharedSecret = x25519.getSharedSecret(userPrivateKey, mxePublicKey);
+  
+  // Initialize cipher
+  const cipher = new RescueCipher(sharedSecret);
+  
+  // Decrypt 4 chunks (base_total, base_available, quote_total, quote_available)
+  const balances = cipher.decrypt(encryptedBalances, nonce);
+  
+  return {
+    base_total: deserializeLE(balances[0]),
+    base_available: deserializeLE(balances[1]),
+    quote_total: deserializeLE(balances[2]),
+    quote_available: deserializeLE(balances[3])
+  };
+}
+```
+
+### React Components
+
+```typescript
+// components/BalanceDisplay.tsx
+export function BalanceDisplay() {
+  const { publicKey } = useWallet();
+  const [balance, setBalance] = useState<Balance | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    if (!publicKey) return;
+    
+    // Fetch encrypted balance from backend
+    fetchBalance(publicKey.toBase58()).then(async (data) => {
+      // Get user's x25519 keys
+      const { privateKey } = await getOrCreateUserKeys(wallet);
+      
+      // Get MXE public key
+      const mxePublicKey = await getMXEPublicKey();
+      
+      // Decrypt balance
+      const decrypted = await decryptBalance(
+        data.encryptedBalances,
+        data.nonce,
+        privateKey,
+        mxePublicKey
+      );
+      
+      setBalance(decrypted);
+      setLoading(false);
+    });
+    
+    // Subscribe to real-time updates
+    const ws = new WebSocket('wss://api.darkpool.xyz/ws');
+    ws.send(JSON.stringify({
+      type: 'subscribe',
+      user: publicKey.toBase58()
+    }));
+    
+    ws.onmessage = async (msg) => {
+      const event = JSON.parse(msg.data);
+      if (event.type === 'deposit' || event.type === 'withdraw_complete') {
+        // Re-decrypt updated balance
+        const { privateKey } = await getOrCreateUserKeys(wallet);
+        const mxePublicKey = await getMXEPublicKey();
+        const decrypted = await decryptBalance(
+          event.data.encryptedBalances,
+          event.data.balanceNonce,
+          privateKey,
+          mxePublicKey
+        );
+        setBalance(decrypted);
+      }
+    };
+    
+    return () => ws.close();
+  }, [publicKey]);
+  
+  if (loading) return <Spinner />;
+  
+  return (
+    <div className="balance-card">
+      <h2>Your Private Balance</h2>
+      <div className="balance-item">
+        <span>SOL</span>
+        <span>{formatBalance(balance.base_available)} / {formatBalance(balance.base_total)}</span>
+      </div>
+      <div className="balance-item">
+        <span>USDC</span>
+        <span>{formatBalance(balance.quote_available)} / {formatBalance(balance.quote_total)}</span>
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+## 🚢 Deployment
+
+### Frontend (Vercel)
+```bash
+# vercel.json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "env": {
+    "VITE_SOLANA_RPC": "https://api.devnet.solana.com",
+    "VITE_PROGRAM_ID": "DQ5MR2aPD9sPBN9ukVkhwrAn8ADxpkAE5AHUnXxKEvn1",
+    "VITE_BACKEND_URL": "https://api.darkpool.xyz",
+    "VITE_WS_URL": "wss://api.darkpool.xyz/ws"
+  }
+}
+```
+
+### Backend (Railway / Fly.io)
+```bash
+# docker-compose.yml
+version: '3.8'
+services:
+  api:
+    build: ./backend
+    environment:
+      - DATABASE_URL=postgresql://user:pass@postgres:5432/darkpool
+      - SOLANA_RPC=https://api.devnet.solana.com
+      - PROGRAM_ID=DQ5MR2aPD9sPBN9ukVkhwrAn8ADxpkAE5AHUnXxKEvn1
+    ports:
+      - "3000:3000"
+  
+  indexer:
+    build: ./backend
+    command: npm run indexer
+    environment:
+      - DATABASE_URL=postgresql://user:pass@postgres:5432/darkpool
+      - SOLANA_RPC=https://api.devnet.solana.com
+  
+  cranker:
+    build: ./backend
+    command: npm run cranker
+    environment:
+      - CRANKER_KEYPAIR=/secrets/cranker_bot.json
+    volumes:
+      - ./secrets:/secrets:ro
+  
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=darkpool
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+```
+
+### Cranker Bot (Systemd Service)
+```ini
+# /etc/systemd/system/cranker-bot.service
+[Unit]
+Description=Dark Pool Cranker Bot
+After=network.target
+
+[Service]
+Type=simple
+User=darkpool
+WorkingDirectory=/opt/darkpool/backend
+Environment="NODE_ENV=production"
+Environment="CRANKER_KEYPAIR=/secrets/cranker_bot.json"
+ExecStart=/usr/bin/npm run cranker
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+---
+
+## 📈 Monitoring & Observability
+
+### Key Metrics
+
+**Frontend:**
+- Balance decryption time (should be <100ms)
+- WebSocket reconnection rate
+- Transaction success rate
+- User session duration
+
+**Backend:**
+- Event processing latency (indexer)
+- Database query performance
+- WebSocket connection count
+- API response times
+
+**Cranker:**
+- Withdrawal execution success rate
+- Average execution time (Step 1 → Step 2)
+- Failed withdrawal count
+- SOL balance (for transaction fees)
+
+### Grafana Dashboard
+
+```yaml
+# Example metrics
+- name: withdrawal_latency
+  query: histogram_quantile(0.95, rate(withdrawal_duration_seconds_bucket[5m]))
+  
+- name: indexer_lag
+  query: time() - max(last_indexed_block_timestamp)
+  
+- name: cranker_balance
+  query: cranker_bot_sol_balance
+  alert_threshold: 5  # Alert if < 5 SOL
+```
+
+---
+
+## 🎓 Technical Challenges Solved
+
+### 1. Large Encrypted Data Problem
+**Challenge:** OrderBook encryption produces 1,344 bytes, exceeding Solana callback limits
+
+**Solution:** Callback server pattern (future implementation)
+- MPC posts large encrypted data to off-chain server
+- Callback only contains reference hash
+- Frontend fetches from callback server
+
+### 2. User Balance Transparency
+**Challenge:** Traditional privacy systems hide balances from users too
+
+**Solution:** Dual-encryption scheme
+- `Enc<Shared, Balances>` for user ledgers (user + MPC can decrypt)
+- `Enc<Mxe, OrderBook>` for orderbook (only MPC can decrypt)
+
+### 3. Withdrawal Security
+**Challenge:** How to prevent unauthorized withdrawals while maintaining privacy?
+
+**Solution:** Two-step verification
+- Step 1: MPC validates on encrypted data
+- Step 2: Cranker executes only after cryptographic proof
+
+### 4. Real-Time Updates
+**Challenge:** Solana events don't persist, how do users see history?
+
+**Solution:** Event indexer architecture
+- Backend listens 24/7, stores all events
+- PostgreSQL for queryable history
+- WebSocket for real-time push
+- REST API for historical queries
+
+---
+
+## 🔮 Roadmap
+
+### Phase 1: MVP (Current)
+- ✅ User-decryptable balance management
+- ✅ Deposit flow
+- ✅ Two-step withdrawal
+- ✅ Event emission
+- ⏳ Frontend implementation
+- ⏳ Backend event indexer
+
+### Phase 2: Trading
+- [ ] Order submission UI
+- [ ] Callback server for large encrypted data
+- [ ] Order matching engine
+- [ ] Settlement execution
+- [ ] Order history / portfolio view
+
+### Phase 3: Advanced Features
+- [ ] Limit orders + order types
+- [ ] Price charts (aggregated, no order-level data)
+- [ ] Mobile app
+- [ ] Notifications (email/SMS for fills)
+
+### Phase 4: Scale
+- [ ] Multiple trading pairs
+- [ ] Cross-chain deposits (Wormhole)
+- [ ] Liquidity mining
+- [ ] Governance token
+
+---
+
+## 💎 Why This Matters
+
+**For Traders:**
+- 🔒 **Privacy**: Trade without revealing your strategy
+- 💰 **No MEV**: Orders invisible to bots and sandwich attacks
+- 📊 **Transparency**: You always know your exact balance
+- ⚡ **Speed**: Solana's 400ms finality
+
+**For DeFi:**
+- 🏗️ **Composability**: Can integrate with existing DeFi protocols
+- 🌐 **Censorship Resistance**: No KYC, no geographical restrictions
+- 🔐 **Self-Custody**: You always control your keys
+- 🚀 **Innovation**: First truly private yet transparent DEX
+
+**For the Ecosystem:**
+- 🧪 **MPC Research**: Pushes boundaries of encrypted computation
+- 📚 **Open Source**: Full code available for audit and learning
+- 🛠️ **Developer Tools**: Reusable patterns for future privacy dApps
+- 🌟 **Proof of Concept**: Shows what's possible with Arcium MPC
+
+---
+
+## 📚 Resources
+
+### Documentation
+- [Smart Contract README](./README.md) - Program architecture
+- [Event Handling Architecture](./EVENT_HANDLING_ARCHITECTURE.md)
+- [Frontend Quickstart](./FRONTEND_QUICKSTART.md)
+- [Withdrawal Test Guide](./WITHDRAWAL_TEST_GUIDE.md)
+
+### External Links
+- [Arcium Documentation](https://docs.arcium.com)
+- [Solana Cookbook](https://solanacookbook.com)
+- [Anchor Framework](https://www.anchor-lang.com)
+
+### Community
+- Discord: (coming soon)
+- Twitter: (coming soon)
+- GitHub: (this repo)
 
 ---
 
 ## 🤝 Contributing
 
-### 🚀 Getting Started
+We welcome contributions! Areas where help is needed:
 
-1. **Fokr** the repository
-2. **Clone with submodules** (`git clone --recurse-submodules`)
-3. **Create** a feature branch (`git checkout -b feature/privacy-enhancement`)
-4. **Commit** your changes (`git commit -m 'Add privacy feature'`)
-5. **Push** to the branch (`git push origin feature/privacy-enhancement`)
-6. **Open** a Pull Request
+**Frontend:**
+- React component library
+- Real-time WebSocket client
+- Balance decryption optimization
+- Mobile responsive design
+
+**Backend:**
+- Event indexer performance tuning
+- PostgreSQL query optimization
+- WebSocket scaling (Redis pub/sub)
+- Monitoring/alerting setup
+
+**Smart Contracts:**
+- Callback server implementation
+- Order matching optimization
+- Gas optimization
+- Security audits
+
+---
+
+## ⚠️ Disclaimer
+
+This is an **experimental prototype** built for educational and research purposes.
+
+- ❌ **NOT audited** for production use
+- ❌ **NOT financial advice**
+- ❌ **USE AT YOUR OWN RISK**
+
+Always test on devnet first. Never invest more than you can afford to lose.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-## ⚠️ Disclaimer
-
-> **This software is in testing phase development and should be used for testing purposes only.**
+GPL v3 - See [LICENSE](./LICENSE)
 
 ---
 
-<div align="center">
+## 🙏 Acknowledgments
 
-## 🌊 **Siphon Protocol**
+- **Arcium Team** - For building the MPC network that makes this possible
+- **Solana Foundation** - For the blazing fast blockchain
+- **Open Source Community** - For the tools and libraries
 
-</div>
+---
+
+<p align="center">
+  <b>Built with ❤️ by developers who believe privacy is a right, not a luxury</b>
+</p>
+
+<p align="center">
+  <i>"The best way to predict the future is to invent it."</i> - Alan Kay
+</p>
