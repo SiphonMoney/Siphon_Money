@@ -789,24 +789,173 @@
   height: 100%;
   text-align: center;
   padding: 40px;
+  gap: 32px;
+}
+
+.wallet-icon-large {
+  font-size: 80px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
 }
 
 .welcome-screen h1 {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin: 0;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.welcome-screen > p {
+.welcome-screen .subtitle {
   font-size: 18px;
   color: #b8b8b8;
-  margin-bottom: 40px;
+  margin: 0;
+  max-width: 500px;
 }
 
+/* Connection Steps */
+.connect-steps {
+  display: flex;
+  gap: 24px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 250px;
+  text-align: left;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.step-content h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.step-content p {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Connect Prompt Large */
+.connect-prompt-large {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+  }
+}
+
+.prompt-icon {
+  font-size: 48px;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.prompt-text {
+  font-size: 18px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.prompt-text strong {
+  color: #667eea;
+}
+
+.prompt-subtext {
+  font-size: 14px;
+  color: #b8b8b8;
+  margin: 0;
+}
+
+/* Features Preview */
+.features-preview {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #d0d0d0;
+}
+
+.feature-icon {
+  font-size: 24px;
+}
+
+.feature-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Legacy connect prompt (keeping for backwards compatibility) */
 .connect-prompt {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1177,11 +1326,41 @@
   }
 
   .welcome-screen h1 {
-    font-size: 24px;
+    font-size: 28px;
   }
 
-  .welcome-screen > p {
+  .welcome-screen .subtitle {
     font-size: 16px;
+  }
+
+  .wallet-icon-large {
+    font-size: 60px;
+  }
+
+  .connect-steps {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .step {
+    max-width: 100%;
+  }
+
+  .connect-prompt-large {
+    padding: 24px;
+  }
+
+  .prompt-icon {
+    font-size: 36px;
+  }
+
+  .prompt-text {
+    font-size: 16px;
+  }
+
+  .features-preview {
+    flex-direction: column;
+    gap: 16px;
   }
 }
 

@@ -10,8 +10,10 @@ import styles from "../../hero.module.css";
 export default function DarkPoolPage() {
   const [walletConnected, setWalletConnected] = useState(false);
   const [connectedWallet, setConnectedWallet] = useState<WalletInfo | null>(null);
+  const [isCheckingWallet, setIsCheckingWallet] = useState(true);
 
   const handleWalletConnected = (wallet: WalletInfo) => {
+    console.log('Wallet connected:', wallet);
     setWalletConnected(true);
     setConnectedWallet(wallet);
     localStorage.setItem('siphon-connected-wallet', JSON.stringify(wallet));
@@ -27,18 +29,59 @@ export default function DarkPoolPage() {
   };
 
   useEffect(() => {
-    const persistedWallet = localStorage.getItem('siphon-connected-wallet');
-    if (persistedWallet) {
+    // Check for actual wallet connection, not just localStorage
+    const checkWalletConnection = async () => {
       try {
-        const wallet = JSON.parse(persistedWallet);
-        setConnectedWallet(wallet);
-        setWalletConnected(true);
+        // Check if wallet is actually connected in the browser
+        if (typeof window !== 'undefined') {
+          const solana = (window as any).solana;
+          const solflare = (window as any).solflare;
+          
+          // Check Phantom or Solflare
+          const provider = solflare?.isSolflare ? solflare : solana;
+          
+          if (provider && provider.isConnected && provider.publicKey) {
+            // Wallet is actually connected
+            const persistedWallet = localStorage.getItem('siphon-connected-wallet');
+            if (persistedWallet) {
+              try {
+                const wallet = JSON.parse(persistedWallet);
+                // Verify the address matches
+                if (wallet.address === provider.publicKey.toString()) {
+                  console.log('Restored wallet connection:', wallet);
+                  setConnectedWallet(wallet);
+                  setWalletConnected(true);
+                } else {
+                  // Address mismatch, clear storage
+                  console.log('Wallet address mismatch, clearing storage');
+                  localStorage.removeItem('siphon-connected-wallet');
+                }
+              } catch (error) {
+                console.error('Failed to parse persisted wallet:', error);
+                localStorage.removeItem('siphon-connected-wallet');
+              }
+            }
+          } else {
+            // No active wallet connection, clear any stale data
+            console.log('No active wallet connection detected');
+            localStorage.removeItem('siphon-connected-wallet');
+            setConnectedWallet(null);
+            setWalletConnected(false);
+          }
+        }
       } catch (error) {
-        console.error('Failed to parse persisted wallet:', error);
+        console.error('Error checking wallet connection:', error);
         localStorage.removeItem('siphon-connected-wallet');
+      } finally {
+        setIsCheckingWallet(false);
       }
-    }
+    };
+
+    checkWalletConnection();
   }, []);
+
+  // Show loading while checking wallet connection
+  const walletAddress = (walletConnected && connectedWallet) ? connectedWallet.address : null;
 
   return (
     <div style={{ 
@@ -114,11 +157,35 @@ export default function DarkPoolPage() {
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
           overflow: 'hidden'
         }}>
-          <DarkPoolInterface
-            walletAddress={connectedWallet?.address || null}
-            walletName={connectedWallet?.name}
-            onDisconnect={handleDisconnect}
-          />
+          {isCheckingWallet ? (
+            <div style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#ffffff'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  border: '3px solid rgba(255, 255, 255, 0.1)',
+                  borderTop: '3px solid #667eea',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  animation: 'spin 1s linear infinite',
+                  margin: '0 auto 16px'
+                }} />
+                <p>Checking wallet connection...</p>
+              </div>
+            </div>
+          ) : (
+            <DarkPoolInterface
+              walletAddress={walletAddress}
+              walletName={connectedWallet?.name}
+              onDisconnect={handleDisconnect}
+            />
+          )}
         </div>
       </div>
     </div>

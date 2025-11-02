@@ -56,16 +56,62 @@ export default function DarkPoolInterface({
     setBalanceKey(prev => prev + 1); // Force balance refresh
   };
 
-  // Not connected state
+  // Not connected state - MUST connect wallet first
   if (!walletAddress) {
     return (
       <div className="darkpool-interface">
         <div className="welcome-screen">
-          <h1>Welcome to Dark Pool Trading</h1>
-          <p>Private liquidity provision with encrypted balances</p>
-          <div className="connect-prompt">
-            <span className="icon">🔒</span>
-            <p>Connect your wallet to get started</p>
+          <div className="wallet-icon-large">🔐</div>
+          <h1>Connect Your Wallet</h1>
+          <p className="subtitle">You need to connect your wallet to access the Dark Pool</p>
+          
+          <div className="connect-steps">
+            <div className="step">
+              <span className="step-number">1</span>
+              <div className="step-content">
+                <h4>Connect Wallet</h4>
+                <p>Click "Connect Wallet" in the top navigation</p>
+              </div>
+            </div>
+            <div className="step">
+              <span className="step-number">2</span>
+              <div className="step-content">
+                <h4>Initialize Account</h4>
+                <p>Set up your encrypted balance tracker</p>
+              </div>
+            </div>
+            <div className="step">
+              <span className="step-number">3</span>
+              <div className="step-content">
+                <h4>Start Trading</h4>
+                <p>Deposit funds and place private orders</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="connect-prompt-large">
+            <div className="prompt-icon">⬆️</div>
+            <p className="prompt-text">
+              <strong>Please connect your wallet using the button above</strong>
+            </p>
+            <p className="prompt-subtext">
+              We support Phantom, Solflare, and other Solana wallets
+            </p>
+          </div>
+
+          <div className="features-preview">
+            <div className="feature-item">
+              <span className="feature-icon">🔒</span>
+              <span className="feature-text">Encrypted Balances</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">🤐</span>
+              <span className="feature-text">Private Trading</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">⚡</span>
+              <span className="feature-text">Fast Settlement</span>
+            </div>
           </div>
         </div>
       </div>
