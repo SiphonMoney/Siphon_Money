@@ -206,10 +206,12 @@ async function encryptWithSignature(data: Uint8Array, signature: Uint8Array): Pr
   );
   
   const iv = crypto.getRandomValues(new Uint8Array(12));
+  // Create a new Uint8Array to ensure proper ArrayBuffer type
+  const dataBuffer = new Uint8Array(data);
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv },
     key,
-    data
+    dataBuffer
   );
   
   // Combine IV + encrypted data
