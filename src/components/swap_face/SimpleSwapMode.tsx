@@ -103,7 +103,6 @@ export default function SimpleSwapMode({
       // Try injected providers: prefer Solflare if present, otherwise Phantom
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const anyWindow = window as unknown as { solana?: any; solflare?: any };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const provider = anyWindow.solflare?.isSolflare ? anyWindow.solflare : (anyWindow.solana?.isPhantom ? anyWindow.solana : anyWindow.solana);
       if (!provider) {
         throw new Error('No Solana provider found. Please connect Phantom or Solflare.');

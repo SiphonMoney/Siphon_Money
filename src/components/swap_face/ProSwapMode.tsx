@@ -38,21 +38,6 @@ export default function ProSwapMode({
   type ToastStatus = 'pending' | 'success' | 'failed';
   interface ToastItem { id: number; title: string; message: string; status: ToastStatus }
   const [toasts, setToasts] = useState<ToastItem[]>([]);
-  const _pushToast = (title: string, message: string, status: ToastStatus = 'pending', ttlMs = 3500) => {
-    const id = Date.now() + Math.floor(Math.random() * 1000);
-    const toast: ToastItem = { id, title, message, status };
-    setToasts((t) => [toast, ...t]);
-    // auto-complete pending -> success after short delay
-    if (status === 'pending') {
-      window.setTimeout(() => {
-        setToasts((curr) => curr.map((x) => x.id === id ? { ...x, status: 'success', message: 'Completed' } : x));
-      }, Math.min(ttlMs - 1000, 2500));
-    }
-    // auto-remove
-    window.setTimeout(() => {
-      setToasts((curr) => curr.filter((x) => x.id !== id));
-    }, ttlMs);
-  };
 
   const pushProcessToast = (kind: 'deposit' | 'execution' | 'withdraw') => {
     const sequences: Record<string, string[]> = {

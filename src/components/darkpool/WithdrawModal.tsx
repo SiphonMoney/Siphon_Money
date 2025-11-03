@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from 'react';
-import { BACKEND_URL, USDC_DECIMALS } from '@/lib/constants';
+import { BACKEND_URL } from '@/lib/constants';
 import './darkpool.css';
 
 interface WithdrawModalProps {
@@ -15,7 +15,6 @@ type TokenType = 'base' | 'quote';
 type WithdrawStatus = 'idle' | 'verifying' | 'waiting_backend' | 'executing' | 'complete' | 'failed';
 
 export default function WithdrawModal({ 
-  walletAddress: _walletAddress, 
   onClose, 
   onSuccess 
 }: WithdrawModalProps) {

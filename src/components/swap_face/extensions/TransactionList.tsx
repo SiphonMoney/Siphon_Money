@@ -60,9 +60,9 @@ export default function TransactionList({ poolPair, maxItems }: TransactionListP
       } catch {}
 
       // Filter by pair and sort latest first
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const localForPair = local
         .filter((t) => t && typeof t === 'object')
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .filter((t) => (t as any).pair === poolPair)
         .sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
 

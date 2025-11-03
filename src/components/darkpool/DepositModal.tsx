@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from 'react';
-import { USDC_DECIMALS } from '@/lib/constants';
 import './darkpool.css';
 
 interface DepositModalProps {
