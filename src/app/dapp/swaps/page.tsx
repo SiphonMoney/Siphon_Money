@@ -9,7 +9,7 @@ import styles from "../../hero.module.css";
 
 export default function SwapsPage() {
   const [walletConnected, setWalletConnected] = useState(false);
-  const [connectedWallet, setConnectedWallet] = useState<WalletInfo | null>(null);
+  const [, setConnectedWallet] = useState<WalletInfo | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleWalletConnected = (wallet: WalletInfo) => {

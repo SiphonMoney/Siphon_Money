@@ -787,9 +787,10 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 3rem 2rem;
-  gap: 3rem;
+  padding: 4rem 2rem;
+  gap: 2.5rem;
   font-family: var(--font-source-code), monospace;
+  min-height: 600px;
 }
 
 .wallet-icon-large {
@@ -814,32 +815,102 @@
 }
 
 .welcome-header h1 {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
-  margin: 0 0 0.75rem 0;
-  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem 0;
+  color: rgba(255, 255, 255, 0.95);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   font-family: var(--font-source-code), monospace;
 }
 
 .welcome-header .subtitle {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0 0 2rem 0;
-  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 2.5rem 0;
+  letter-spacing: 0.5px;
   font-family: var(--font-source-code), monospace;
+  text-transform: uppercase;
 }
 
 .connect-button-wrapper {
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  position: relative;
 }
 
 .welcome-connect-button {
   width: 100%;
+}
+
+.welcome-connect-button .wallet-selector {
+  width: 100%;
+}
+
+.welcome-connect-button .wallet-selector-trigger {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.875rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-family: var(--font-source-code), monospace;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.welcome-connect-button .wallet-selector-trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.welcome-connect-button .wallet-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 1rem;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-connect-button .wallet-option {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  color: white;
+  font-family: var(--font-source-code), monospace;
+}
+
+.welcome-connect-button .wallet-option:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.welcome-connect-button .wallet-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Connection Steps */
@@ -951,18 +1022,24 @@
 .features-preview {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1.25rem;
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto 1.5rem;
+  max-width: 950px;
+  margin: 0 auto 2rem;
 }
 
 .feature-item {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: 10px;
+  padding: 1.75rem 1.5rem;
   text-align: left;
+  transition: all 0.2s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .feature-content h4 {
@@ -985,22 +1062,23 @@
 }
 
 .privacy-badge {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
   margin: 0 auto 2rem;
-  max-width: 600px;
+  max-width: 700px;
 }
 
 .privacy-badge p {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.65);
   margin: 0;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   font-family: var(--font-source-code), monospace;
   text-align: center;
+  line-height: 1.6;
 }
 
 .connect-info {

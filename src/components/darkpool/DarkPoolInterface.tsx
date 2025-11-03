@@ -10,13 +10,14 @@ import WithdrawModal from './WithdrawModal';
 import OrderForm from './OrderForm';
 import OrderList from './OrderList';
 import ConnectButton from '../swap_face/extensions/ConnectButton';
+import { WalletInfo } from '@/lib/walletManager';
 import './darkpool.css';
 
 interface DarkPoolInterfaceProps {
   walletAddress: string | null;
   walletName?: string;
   onDisconnect?: () => void;
-  onWalletConnected?: (wallet: any) => void;
+  onWalletConnected?: (wallet: WalletInfo) => void;
 }
 
 type View = 'overview' | 'trade' | 'history';
@@ -66,8 +67,9 @@ export default function DarkPoolInterface({
         <div className="welcome-screen">
           <div className="welcome-header">
             <h1>Dark Pools</h1>
-            <p className="subtitle">Connect your wallet to access private trading</p>
-            
+            <div className="privacy-badge">
+              <p>Confidential, institutional, liquidity pools for large trades without market impact.</p>
+            </div>            
             <div className="features-preview">
               <div className="feature-item">
                 <div className="feature-content">
@@ -89,9 +91,7 @@ export default function DarkPoolInterface({
               </div>
             </div>
 
-            <div className="privacy-badge">
-              <p>Institutional-grade privacy for sophisticated traders</p>
-            </div>
+    
           </div>
 
           <div className="connect-button-wrapper">

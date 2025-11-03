@@ -10,7 +10,6 @@ export default function AppFooter() {
       <div className="footer-links">
       <p>Hyperliquid.</p>
       <p>Untraceable.</p>
-      <p>Provable.</p>
       </div>
     </footer>
   );

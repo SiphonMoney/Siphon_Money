@@ -82,9 +82,7 @@ export async function getOrCreateUserKeys(walletAddress: string, signMessage: (m
 export async function decryptBalance(
   encryptedBalances: number[][], // 4 chunks of 32 bytes
   nonce: bigint,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _userPrivateKey: Uint8Array,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _mxePublicKey: Uint8Array
 ): Promise<EncryptedBalance> {
   // TODO: Implement actual decryption using RescueCipher
