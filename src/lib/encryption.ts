@@ -82,7 +82,9 @@ export async function getOrCreateUserKeys(walletAddress: string, signMessage: (m
 export async function decryptBalance(
   encryptedBalances: number[][], // 4 chunks of 32 bytes
   nonce: bigint,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _userPrivateKey: Uint8Array,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _mxePublicKey: Uint8Array
 ): Promise<EncryptedBalance> {
   // TODO: Implement actual decryption using RescueCipher
@@ -92,17 +94,17 @@ export async function decryptBalance(
   
   console.log('Decrypting balance (placeholder):', { 
     encryptedBalances, 
-    nonce: nonce.toString(), 
-    userPrivateKey: userPrivateKey.length,
-    mxePublicKey: mxePublicKey.length 
+    nonce: nonce.toString(),
+    userPrivateKeyLength: _userPrivateKey.length,
+    mxePublicKeyLength: _mxePublicKey.length 
   });
   
   // Placeholder: Return mock data
   return {
-    base_total: 10_500_000_000n, // 10.5 SOL
-    base_available: 10_500_000_000n,
-    quote_total: 0n,
-    quote_available: 0n,
+    base_total: BigInt(10500000000), // 10.5 SOL
+    base_available: BigInt(10500000000),
+    quote_total: BigInt(0),
+    quote_available: BigInt(0),
   };
 }
 
@@ -116,7 +118,9 @@ export async function encryptOrderData(
     amount: number;
     price: number;
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _userPrivateKey: Uint8Array,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _mxePublicKey: Uint8Array
 ): Promise<{ encrypted: number[][]; nonce: bigint }> {
   // TODO: Implement actual encryption using RescueCipher
@@ -144,7 +148,9 @@ export async function encryptOrderData(
 export async function decryptOrderData(
   encryptedData: number[][], // 5 chunks
   nonce: bigint,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _userPrivateKey: Uint8Array,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _mxePublicKey: Uint8Array
 ): Promise<{
   orderType: number;
