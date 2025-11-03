@@ -507,6 +507,12 @@
   font-weight: 600;
 }
 
+.toggle-button.active-limited {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.03);
+  font-weight: 500;
+}
+
 .toggle-button:hover {
   color: rgba(255, 255, 255, 0.8);
   background: rgba(255, 255, 255, 0.05);
@@ -515,6 +521,11 @@
 .toggle-button.active:hover {
   color: white;
   background: rgba(255, 255, 255, 0.15);
+}
+
+.toggle-button.active-limited:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* Common Input Styles */

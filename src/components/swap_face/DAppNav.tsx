@@ -14,6 +14,7 @@ export default function DAppNav({ onWalletConnected }: DAppNavProps) {
   const pathname = usePathname();
   const isDarkPool = pathname === "/dapp/darkpool";
   const isPro = pathname === "/dapp/pro";
+  const isSwaps = pathname === "/dapp/swaps";
 
   return (
     <>
@@ -24,8 +25,13 @@ export default function DAppNav({ onWalletConnected }: DAppNavProps) {
             Dark Pools
           </button>
         </Link>
+        <Link href="/dapp/swaps">
+          <button className={`toggle-button ${isSwaps ? 'active-limited' : ''}`}>
+            Swaps
+          </button>
+        </Link>
         <Link href="/dapp/pro">
-          <button className={`toggle-button ${isPro ? 'active' : ''}`}>
+          <button className={`toggle-button ${isPro ? 'active-limited' : ''}`}>
             Pro
           </button>
         </Link>

@@ -63,18 +63,15 @@ export default function InitializeLedger({ walletAddress, onComplete, onCancel }
               ledger using MPC encryption.
             </p>
             <div className="info-box">
-              <span className="icon">🔒</span>
               <span>Your balances will be encrypted on-chain</span>
             </div>
             <div className="info-box">
-              <span className="icon">⚡</span>
               <span>Takes approximately 5-10 seconds</span>
             </div>
           </div>
 
           {error && (
             <div className="error-box">
-              <span className="icon">❌</span>
               <span>{error}</span>
             </div>
           )}

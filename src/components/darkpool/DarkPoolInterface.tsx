@@ -9,12 +9,14 @@ import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
 import OrderForm from './OrderForm';
 import OrderList from './OrderList';
+import ConnectButton from '../swap_face/extensions/ConnectButton';
 import './darkpool.css';
 
 interface DarkPoolInterfaceProps {
   walletAddress: string | null;
   walletName?: string;
   onDisconnect?: () => void;
+  onWalletConnected?: (wallet: any) => void;
 }
 
 type View = 'overview' | 'trade' | 'history';
@@ -23,7 +25,8 @@ type ModalType = 'deposit' | 'withdraw' | null;
 export default function DarkPoolInterface({ 
   walletAddress,
   walletName = 'Wallet',
-  onDisconnect 
+  onDisconnect,
+  onWalletConnected
 }: DarkPoolInterfaceProps) {
   const { exists: ledgerExists, loading: checkingLedger, checkLedgerExists } = useUserLedger(walletAddress);
   const [view, setView] = useState<View>('overview');
@@ -61,58 +64,44 @@ export default function DarkPoolInterface({
     return (
       <div className="darkpool-interface">
         <div className="welcome-screen">
-          <div className="wallet-icon-large">🔐</div>
-          <h1>Connect Your Wallet</h1>
-          <p className="subtitle">You need to connect your wallet to access the Dark Pool</p>
-          
-          <div className="connect-steps">
-            <div className="step">
-              <span className="step-number">1</span>
-              <div className="step-content">
-                <h4>Connect Wallet</h4>
-                <p>Click &quot;Connect Wallet&quot; in the top navigation</p>
+          <div className="welcome-header">
+            <h1>Dark Pools</h1>
+            <p className="subtitle">Connect your wallet to access private trading</p>
+            
+            <div className="features-preview">
+              <div className="feature-item">
+                <div className="feature-content">
+                  <h4>Encrypted Balances</h4>
+                  <p>Your balances are encrypted on-chain using MPC</p>
+                </div>
+              </div>
+              <div className="feature-item">
+                <div className="feature-content">
+                  <h4>Private Trading</h4>
+                  <p>Orders matched privately without revealing details</p>
+                </div>
+              </div>
+              <div className="feature-item">
+                <div className="feature-content">
+                  <h4>Fast Settlement</h4>
+                  <p>Orders settle within seconds on Solana</p>
+                </div>
               </div>
             </div>
-            <div className="step">
-              <span className="step-number">2</span>
-              <div className="step-content">
-                <h4>Initialize Account</h4>
-                <p>Set up your encrypted balance tracker</p>
-              </div>
-            </div>
-            <div className="step">
-              <span className="step-number">3</span>
-              <div className="step-content">
-                <h4>Start Trading</h4>
-                <p>Deposit funds and place private orders</p>
-              </div>
+
+            <div className="privacy-badge">
+              <p>Institutional-grade privacy for sophisticated traders</p>
             </div>
           </div>
 
-          <div className="connect-prompt-large">
-            <div className="prompt-icon">⬆️</div>
-            <p className="prompt-text">
-              <strong>Please connect your wallet using the button above</strong>
-            </p>
-            <p className="prompt-subtext">
-              We support Phantom, Solflare, and other Solana wallets
-            </p>
+          <div className="connect-button-wrapper">
+            <ConnectButton 
+              className="welcome-connect-button"
+              onConnected={onWalletConnected}
+            />
           </div>
 
-          <div className="features-preview">
-            <div className="feature-item">
-              <span className="feature-icon">🔒</span>
-              <span className="feature-text">Encrypted Balances</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">🤐</span>
-              <span className="feature-text">Private Trading</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">⚡</span>
-              <span className="feature-text">Fast Settlement</span>
-            </div>
-          </div>
+      
         </div>
       </div>
     );
@@ -148,7 +137,7 @@ export default function DarkPoolInterface({
       {/* Header */}
       <div className="darkpool-main-header">
         <div className="header-left">
-          <h2>🌑 Dark Pool</h2>
+          <h2>Dark Pool</h2>
         </div>
         <div className="header-right">
           <div className="wallet-badge">
@@ -206,7 +195,6 @@ export default function DarkPoolInterface({
                   onClick={() => setActiveModal('deposit')}
                   className="action-card deposit"
                 >
-                  <span className="icon">💰</span>
                   <div className="action-content">
                     <h4>Deposit</h4>
                     <p>Add tokens to your encrypted balance</p>
@@ -216,7 +204,6 @@ export default function DarkPoolInterface({
                   onClick={() => setActiveModal('withdraw')}
                   className="action-card withdraw"
                 >
-                  <span className="icon">🏦</span>
                   <div className="action-content">
                     <h4>Withdraw</h4>
                     <p>Remove tokens from the pool</p>
@@ -227,14 +214,12 @@ export default function DarkPoolInterface({
 
             <div className="info-section">
               <div className="info-card">
-                <span className="icon">🔒</span>
                 <div>
                   <h4>Privacy First</h4>
                   <p>Your balances are encrypted on-chain using MPC</p>
                 </div>
               </div>
               <div className="info-card">
-                <span className="icon">⚡</span>
                 <div>
                   <h4>Fast Settlement</h4>
                   <p>Orders settle within seconds using Solana</p>
@@ -273,7 +258,6 @@ export default function DarkPoolInterface({
                   </div>
                 </div>
                 <div className="info-box">
-                  <span className="icon">ℹ️</span>
                   <div>
                     <strong>How it works:</strong>
                     <ol>

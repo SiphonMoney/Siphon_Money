@@ -156,13 +156,11 @@ export default function OrderForm({
       </div>
 
       <div className="info-box">
-        <span className="icon">🔒</span>
         <span>Your order details are encrypted end-to-end. Only MPC can see them for matching.</span>
       </div>
 
       {error && (
         <div className="error-box">
-          <span className="icon">❌</span>
           <span>{error}</span>
         </div>
       )}

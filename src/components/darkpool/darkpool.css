@@ -787,9 +787,9 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  text-align: center;
-  padding: 40px;
-  gap: 32px;
+  padding: 3rem 2rem;
+  gap: 3rem;
+  font-family: var(--font-source-code), monospace;
 }
 
 .wallet-icon-large {
@@ -808,21 +808,38 @@
   }
 }
 
-.welcome-screen h1 {
-  font-size: 36px;
-  font-weight: 700;
-  margin: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.welcome-header {
+  text-align: center;
+  width: 100%;
 }
 
-.welcome-screen .subtitle {
-  font-size: 18px;
-  color: #b8b8b8;
-  margin: 0;
-  max-width: 500px;
+.welcome-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: var(--font-source-code), monospace;
+}
+
+.welcome-header .subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.3px;
+  font-family: var(--font-source-code), monospace;
+}
+
+.connect-button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.welcome-connect-button {
+  width: 100%;
 }
 
 /* Connection Steps */
@@ -932,27 +949,71 @@
 
 /* Features Preview */
 .features-preview {
-  display: flex;
-  gap: 32px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
 }
 
 .feature-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #d0d0d0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: left;
 }
 
-.feature-icon {
-  font-size: 24px;
-}
-
-.feature-text {
+.feature-content h4 {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--font-source-code), monospace;
+}
+
+.feature-content p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  font-family: var(--font-source-code), monospace;
+}
+
+.privacy-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  margin: 0 auto 2rem;
+  max-width: 600px;
+}
+
+.privacy-badge p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: var(--font-source-code), monospace;
+  text-align: center;
+}
+
+.connect-info {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.connect-info p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  letter-spacing: 0.3px;
+  font-family: var(--font-source-code), monospace;
 }
 
 /* Legacy connect prompt (keeping for backwards compatibility) */

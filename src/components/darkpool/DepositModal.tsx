@@ -124,7 +124,6 @@ export default function DepositModal({
 
             {error && (
               <div className="error-box">
-                <span className="icon">❌</span>
                 <span>{error}</span>
               </div>
             )}

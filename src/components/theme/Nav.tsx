@@ -22,7 +22,7 @@ export default function Nav() {
 
       {isHomePage && (
         <div className="nav-items">
-          <Link href="/about" className="nav-link">about</Link>
+          <a href="https://siphon-protocol.gitbook.io/siphon-protocol-docs/" target="_blank" rel="noopener noreferrer" className="nav-link">about</a>
           <Link href="/dapp/darkpool" className="nav-link">dapp</Link>
         </div>
       )}

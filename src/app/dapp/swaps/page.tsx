@@ -1,21 +1,45 @@
 "use client";
 
-import { useState } from "react";
-import ProSwapMode from "@/components/swap_face/ProSwapMode";
+import { useState, useEffect } from "react";
 import Nav from "@/components/theme/Nav";
 import DAppNav from "@/components/swap_face/DAppNav";
+import SimpleSwapMode from "@/components/swap_face/SimpleSwapMode";
 import { WalletInfo } from "@/lib/walletManager";
 import styles from "../../hero.module.css";
 
-export default function ProPage() {
-  const [, setWalletConnected] = useState(false);
-  const [, setConnectedWallet] = useState<WalletInfo | null>(null);
+export default function SwapsPage() {
+  const [walletConnected, setWalletConnected] = useState(false);
+  const [connectedWallet, setConnectedWallet] = useState<WalletInfo | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleWalletConnected = (wallet: WalletInfo) => {
+    console.log('Wallet connected:', wallet);
     setWalletConnected(true);
     setConnectedWallet(wallet);
     localStorage.setItem('siphon-connected-wallet', JSON.stringify(wallet));
   };
+
+  useEffect(() => {
+    // Delay to ensure styles are loaded
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+
+    // Check for persisted wallet connection
+    const persistedWallet = localStorage.getItem('siphon-connected-wallet');
+    if (persistedWallet) {
+      try {
+        const wallet = JSON.parse(persistedWallet);
+        setConnectedWallet(wallet);
+        setWalletConnected(true);
+      } catch (error) {
+        console.error('Failed to parse persisted wallet:', error);
+        localStorage.removeItem('siphon-connected-wallet');
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div style={{ 
@@ -94,7 +118,11 @@ export default function ProPage() {
             width: '100%',
             height: '100%'
           }}>
-            <ProSwapMode />
+            <SimpleSwapMode
+              isLoaded={isLoaded}
+              walletConnected={walletConnected}
+              onWalletConnected={handleWalletConnected}
+            />
           </div>
           
           {/* Development Notice Overlay */}

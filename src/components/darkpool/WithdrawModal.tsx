@@ -175,7 +175,6 @@ export default function WithdrawModal({
 
               {error && (
                 <div className="error-box">
-                  <span className="icon">❌</span>
                   <span>{error}</span>
                 </div>
               )}
@@ -226,7 +225,6 @@ export default function WithdrawModal({
       case 'complete':
         return (
           <div className="status-screen success">
-            <div className="checkmark">✅</div>
             <h3>Withdrawal Complete!</h3>
             <p>Tokens have been sent to your wallet.</p>
             {txSignature && (
@@ -248,7 +246,6 @@ export default function WithdrawModal({
       case 'failed':
         return (
           <div className="status-screen error">
-            <div className="error-icon">❌</div>
             <h3>Withdrawal Failed</h3>
             <p>{error || 'Either insufficient balance or backend error. Please try again.'}</p>
             <button onClick={() => {

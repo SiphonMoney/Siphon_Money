@@ -149,13 +149,11 @@ export default function DarkPoolPage() {
         pointerEvents: 'none'
       }}>
         <div style={{
-          width: '95vw',
-          height: '85vh',
-          maxWidth: '1400px',
+          height: '100%',
+          width: '100%',
           pointerEvents: 'auto',
-          background: 'linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%)',
+          background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(4, 3, 12, 0.85) 100%)',
           borderRadius: '16px',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
           overflow: 'hidden'
         }}>
@@ -166,19 +164,27 @@ export default function DarkPoolPage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff'
+              color: 'rgba(255, 255, 255, 0.9)'
             }}>
-              <div style={{ textAlign: 'center' }}>
+              <div style={{ 
+                textAlign: 'center',
+                fontFamily: 'var(--font-source-code), monospace'
+              }}>
                 <div style={{
-                  border: '3px solid rgba(255, 255, 255, 0.1)',
-                  borderTop: '3px solid #667eea',
+                  border: '2px solid rgba(255, 255, 255, 0.1)',
+                  borderTop: '2px solid rgba(255, 255, 255, 0.6)',
                   borderRadius: '50%',
                   width: '40px',
                   height: '40px',
                   animation: 'spin 1s linear infinite',
                   margin: '0 auto 16px'
                 }} />
-                <p>Checking wallet connection...</p>
+                <p style={{
+                  fontSize: '14px',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255, 255, 255, 0.7)'
+                }}>Checking wallet connection...</p>
               </div>
             </div>
           ) : (
@@ -186,6 +192,7 @@ export default function DarkPoolPage() {
               walletAddress={walletAddress}
               walletName={connectedWallet?.name}
               onDisconnect={handleDisconnect}
+              onWalletConnected={handleWalletConnected}
             />
           )}
         </div>

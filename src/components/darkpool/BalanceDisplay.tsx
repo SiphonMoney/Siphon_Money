@@ -59,7 +59,6 @@ export default function BalanceDisplay({
     return (
       <div className="balance-card">
         <div className="error-state">
-          <span className="icon">⚠️</span>
           <span>{error}</span>
         </div>
       </div>
@@ -86,7 +85,7 @@ export default function BalanceDisplay({
           disabled={loading}
           title="Refresh balance"
         >
-          {loading ? '⟳' : '🔄'}
+          {loading ? '⟳' : '⟳'}
         </button>
       </div>
 
@@ -125,7 +124,7 @@ export default function BalanceDisplay({
       </div>
 
       <div className="balance-footer">
-        <span className="encryption-badge">🔒 Encrypted on-chain</span>
+        <span className="encryption-badge">Encrypted on-chain</span>
         <span className="last-update">
           Updated: {lastUpdate.toLocaleTimeString()}
         </span>

@@ -22,7 +22,7 @@ export default function SimpleSwapMode({
   const [swapFromToken, setSwapFromToken] = useState("SOL-Solana");
   const [swapToToken, setSwapToToken] = useState("USDC-Solana");
   const [swapAmount, setSwapAmount] = useState("");
-  const [withdrawAddress, setWithdrawAddress] = useState("4SmCRLbDaoLBu3SaJcXFPfzwu2aWAVN4UciegBz5XDXR");
+  const [withdrawAddress, setWithdrawAddress] = useState("xxx");
   const [isTransferring, setIsTransferring] = useState(false);
   const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
   const [loadingLogs, setLoadingLogs] = useState<string[]>([]);
@@ -167,7 +167,7 @@ export default function SimpleSwapMode({
       
       // Reset form
       setSwapAmount("");
-      setWithdrawAddress("4SmCRLbDaoLBu3SaJcXFPfzwu2aWAVN4UciegBz5XDXR");
+      setWithdrawAddress("");
       
     } catch (error) {
       console.error('Transfer failed:', error);
