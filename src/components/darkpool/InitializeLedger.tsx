@@ -51,7 +51,9 @@ export default function InitializeLedger({ walletAddress, onComplete, onCancel }
     <div className="modal-backdrop">
       <div className="modal-container darkpool-modal">
         <div className="modal-content">
-          <h2>Initialize Your Private Ledger</h2>
+          <div className="modal-header">
+            <h2>Initialize Your Private Ledger</h2>
+          </div>
           
           <div className="info-section">
             <p>

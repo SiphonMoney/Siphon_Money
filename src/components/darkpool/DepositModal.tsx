@@ -115,7 +115,6 @@ export default function DepositModal({
             </div>
 
             <div className="info-box">
-              <span className="icon">ℹ️</span>
               <span>
                 This will transfer tokens from your wallet to the pool vault
                 and update your encrypted balance via MPC computation.

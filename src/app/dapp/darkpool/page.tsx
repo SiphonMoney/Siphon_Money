@@ -152,7 +152,7 @@ export default function DarkPoolPage() {
           height: '100%',
           width: '100%',
           pointerEvents: 'auto',
-          background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(4, 3, 12, 0.85) 100%)',
+          background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.85) 100%)',
           borderRadius: '16px',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
           overflow: 'hidden'

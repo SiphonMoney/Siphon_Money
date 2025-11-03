@@ -162,7 +162,6 @@ export default function WithdrawModal({
               </div>
 
               <div className="info-box warning">
-                <span className="icon">⚠️</span>
                 <div>
                   <strong>Two-step withdrawal process:</strong>
                   <ol>
