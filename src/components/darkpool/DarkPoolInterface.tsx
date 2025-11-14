@@ -33,6 +33,13 @@ export default function DarkPoolInterface({
   const [view, setView] = useState<View>('overview');
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [balanceKey, setBalanceKey] = useState(0);
+  
+  // 🎭 DEMO MODE: Bypass initialization for testing/demo
+  // Set to true to skip ledger check and go straight to main interface
+  // TODO: Remove this before production launch
+  const DEMO_MODE = true;
+  
+  console.log('🎭 DEMO MODE:', DEMO_MODE ? 'ENABLED' : 'DISABLED');
 
   // Mock signMessage function - replace with actual wallet adapter
   const signMessage = useCallback(async (message: Uint8Array): Promise<Uint8Array> => {
@@ -80,8 +87,8 @@ export default function DarkPoolInterface({
     );
   }
 
-  // Checking ledger state
-  if (checkingLedger) {
+  // Checking ledger state (skip in demo mode)
+  if (checkingLedger && !DEMO_MODE) {
     return (
       <div className="darkpool-interface">
         <div className="loading-screen">
@@ -92,8 +99,8 @@ export default function DarkPoolInterface({
     );
   }
 
-  // Need to initialize ledger
-  if (!ledgerExists) {
+  // Need to initialize ledger (skip in demo mode)
+  if (!ledgerExists && !DEMO_MODE) {
     return (
       <div className="darkpool-interface">
         <InitializeLedger
@@ -107,8 +114,31 @@ export default function DarkPoolInterface({
   // Main interface
   return (
     <div className="darkpool-interface">
+      {/* Demo Mode Banner */}
+      {DEMO_MODE && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          background: 'rgba(255, 165, 0, 0.15)',
+          borderBottom: '1px solid rgba(255, 165, 0, 0.4)',
+          padding: '0.5rem',
+          textAlign: 'center',
+          zIndex: 9999,
+          fontFamily: 'var(--font-source-code), monospace',
+          fontSize: '11px',
+          color: 'rgba(255, 165, 0, 0.95)',
+          fontWeight: '600',
+          letterSpacing: '0.5px',
+          textTransform: 'uppercase'
+        }}>
+          🎭 Demo Mode Active - Bypassing Ledger Initialization
+        </div>
+      )}
+      
       {/* Header */}
-      <div className="darkpool-main-header">
+      <div className="darkpool-main-header" style={{ marginTop: DEMO_MODE ? '35px' : '0' }}>
         <div className="header-left">
           <h2>Dark Pool</h2>
         </div>
