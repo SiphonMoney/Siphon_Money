@@ -64,7 +64,7 @@ async function hkdf(
   // Import IKM as key
   const key = await crypto.subtle.importKey(
     'raw',
-    ikm,
+    ikm as BufferSource,
     { name: 'HKDF' },
     false,
     ['deriveBits']
@@ -76,7 +76,7 @@ async function hkdf(
       name: 'HKDF',
       hash: 'SHA-256',
       salt: new TextEncoder().encode(salt),
-      info: info,
+      info: info as BufferSource,
     },
     key,
     length * 8  // bits
@@ -174,7 +174,7 @@ async function cacheX25519Key(
   // Import cache key for encryption
   const key = await crypto.subtle.importKey(
     'raw',
-    cacheKey,
+    cacheKey as BufferSource,
     { name: 'AES-GCM' },
     false,
     ['encrypt']
@@ -184,7 +184,7 @@ async function cacheX25519Key(
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv },
     key,
-    privateKey
+    privateKey as BufferSource
   );
   
   // Store in localStorage
@@ -251,7 +251,7 @@ async function getCachedX25519Key(
     
     const key = await crypto.subtle.importKey(
       'raw',
-      cacheKey,
+      cacheKey as BufferSource,
       { name: 'AES-GCM' },
       false,
       ['decrypt']
